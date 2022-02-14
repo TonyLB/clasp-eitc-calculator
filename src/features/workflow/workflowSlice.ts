@@ -146,19 +146,19 @@ export const getNextStepNeeded = (state: RootState): number => {
     if (incomeBand === undefined) {
         return 3
     }
-    if (incomeBand === 'None' && priorIncomeBand === undefined) {
+    if ((incomeBand === 'None') && priorIncomeBand === undefined) {
         return 4
     }
     if (dobBand === undefined) {
         return 5
     }
-    if (dobBand === '2003' && student === undefined) {
+    if ((dobBand === '1998') && student === undefined) {
         return 6
     }
-    if ((student === true || dobBand === '1998') && fosterCare === undefined) {
+    if ((student === true || dobBand === '2003') && fosterCare === undefined) {
         return 7
     }
-    if (fosterCare === false && homeless === undefined) {
+    if ((fosterCare === false) && homeless === undefined) {
         return 8
     }
     if (resident === undefined) {
@@ -258,9 +258,9 @@ const stepIsRelevantBase = ({
         case 4:
             return incomeBand !== 'Poverty'
         case 6:
-            return dobBand === '2003'
+            return dobBand === '1998'
         case 7:
-            return (dobBand === '1998') || (student ?? false)
+            return (dobBand === '2003') || (student ?? false)
         case 8:
             return fosterCare === false
         case 11:
