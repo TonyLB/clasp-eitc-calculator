@@ -34,7 +34,9 @@ import {
     getLivingWithSomeone,
     setLivingWithSomeone,
     getFamilyConnection,
-    setFamilyConnection
+    setFamilyConnection,
+    getYounger,
+    setYounger
 } from './workflowSlice'
 import { SelectRows } from './SelectRows'
 import WorkflowStep from './WorkflowStep'
@@ -344,6 +346,13 @@ const StepDispatch: FunctionComponent<StepDispatchProps> = ({ activeStep }) => {
                 setValue={setFamilyConnection}
                 title='Family Step'
                 question='Are you their child'
+            />
+        case 13:
+            return <SimpleYesNoStep
+                getValue={getYounger}
+                setValue={setYounger}
+                title='Relative Age Step'
+                question='Are you younger than them (or their spouse, if they file jointly)?'
             />
         case 15:
             return <ResultStep />

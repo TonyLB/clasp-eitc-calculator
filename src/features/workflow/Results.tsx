@@ -11,7 +11,10 @@ import {
     getPriorIncomeBand,
     getDOBBand,
     getHomeless,
-    getResident
+    getResident,
+    getDisability,
+    getFamilyConnection,
+    getYounger,
 } from './workflowSlice'
 import WorkflowStep from './WorkflowStep'
 import InDevelopment from './InDevelopment'
@@ -25,6 +28,9 @@ export const ResultStep = () => {
     const dobBand = useSelector(getDOBBand)
     const homeless = useSelector(getHomeless)
     const resident = useSelector(getResident)
+    const disability = useSelector(getDisability)
+    const familyConnection = useSelector(getFamilyConnection)
+    const younger = useSelector(getYounger)
     if (dependentChildren) {
         return <WorkflowStep title='Results'>
             <Box sx={{ width: "80%", paddingBottom: "10px" }}>
@@ -118,6 +124,13 @@ export const ResultStep = () => {
                 <a href="https://www.getyourrefund.org/en">{ localizer('GetYourRefund') }</a>
                 &nbsp;
                 { localizer('for information on how to file')}
+            </Box>
+        </WorkflowStep>
+    }
+    if (familyConnection && (younger || disability)) {
+        return <WorkflowStep title='Results'>
+            <Box sx={{ width: "80%", paddingBottom: "10px" }}>
+                { localizer('You do not qualify for the Earned Income Tax Credit because you are the qualifying child') }
             </Box>
         </WorkflowStep>
     }
