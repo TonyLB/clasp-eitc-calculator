@@ -1,12 +1,15 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit'
 import { RootState } from '../../app/store'
 
+type IncomeBand = 'None' | 'Poverty' | 'Above'
+
 export interface WorkflowState {
     choseToProceed: boolean;
     activeStep: number;
     dependentChildren?: boolean;
     marriedFilingJoint?: boolean;
     hasSSN?: boolean;
+    incomeBand?: IncomeBand;
 }
 
 const initialState: WorkflowState = {
@@ -27,9 +30,13 @@ export const workflowSlice = createSlice({
         setFilingJoint: (state, action: PayloadAction<boolean>) => {
             state.marriedFilingJoint = action.payload
             state.hasSSN = undefined
+            state.incomeBand = undefined
         },
         setHasSSN: (state, action: PayloadAction<boolean>) => {
             state.hasSSN = action.payload
+        },
+        setIncomeBand: (state, action: PayloadAction<IncomeBand>) => {
+            state.incomeBand = action.payload
         },
         nextRelevantStep: (state) => {
             const nextStep = findNextRelevantStep(state, state.activeStep)
@@ -47,6 +54,7 @@ export const {
     setDependentChildren,
     setFilingJoint,
     setHasSSN,
+    setIncomeBand,
     nextRelevantStep,
     backOneStep
 } = workflowSlice.actions;
@@ -59,7 +67,8 @@ export const getNextStepNeeded = (state: RootState): number => {
     const {
         dependentChildren,
         marriedFilingJoint,
-        hasSSN
+        hasSSN,
+        incomeBand
     } = state.workflow
     if (dependentChildren) {
         return 15
@@ -73,7 +82,10 @@ export const getNextStepNeeded = (state: RootState): number => {
     if (hasSSN === undefined) {
         return 2
     }
-    return 3
+    if (incomeBand === undefined) {
+        return 3
+    }
+    return 4
 }
 
 const findNextRelevantStep = (state: WorkflowState, step: number): number => {
@@ -99,7 +111,8 @@ const findPreviousRelevantStep = (state: WorkflowState, step: number): number =>
 const stepIsRelevantBase = ({
     dependentChildren,
     marriedFilingJoint,
-    hasSSN
+    hasSSN,
+    incomeBand
 }: WorkflowState) => (step: number): boolean => {
     if (step === 0) {
         return true
@@ -109,6 +122,12 @@ const stepIsRelevantBase = ({
     }
     if (hasSSN === false) {
         return (step >= 15) || (step <= 2)
+    }
+    if (incomeBand === 'Above') {
+        return (step >= 15) || (step <= 3)
+    }
+    if (incomeBand === 'Poverty' && step === 4) {
+        return false
     }
     return true
 }
@@ -127,6 +146,10 @@ export const getFilingJoint = (state: RootState) => {
 
 export const getHasSSN = (state: RootState) => {
     return state.workflow.hasSSN
+}
+
+export const getIncomeBand = (state: RootState) => {
+    return state.workflow.incomeBand
 }
 
 export default workflowSlice.reducer;
