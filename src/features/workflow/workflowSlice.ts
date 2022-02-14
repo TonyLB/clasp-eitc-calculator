@@ -14,6 +14,7 @@ export interface WorkflowState {
     incomeBand?: IncomeBand;
     priorIncomeBand?: IncomeBand;
     dobBand?: DOBBand;
+    student?: boolean;
 }
 
 const initialState: WorkflowState = {
@@ -48,6 +49,9 @@ export const workflowSlice = createSlice({
         setDOBBand: (state, action: PayloadAction<DOBBand>) => {
             state.dobBand = action.payload
         },
+        setStudent: (state, action: PayloadAction<boolean>) => {
+            state.student = action.payload
+        },
         nextRelevantStep: (state) => {
             const nextStep = findNextRelevantStep(state, state.activeStep)
             state.activeStep = nextStep
@@ -67,6 +71,7 @@ export const {
     setIncomeBand,
     setPriorIncomeBand,
     setDOBBand,
+    setStudent,
     nextRelevantStep,
     backOneStep
 } = workflowSlice.actions;
@@ -82,7 +87,8 @@ export const getNextStepNeeded = (state: RootState): number => {
         hasSSN,
         incomeBand,
         priorIncomeBand,
-        dobBand
+        dobBand,
+        student
     } = state.workflow
     if (dependentChildren) {
         return 15
@@ -105,7 +111,10 @@ export const getNextStepNeeded = (state: RootState): number => {
     if (dobBand === undefined) {
         return 5
     }
-    return 6
+    if (student === undefined) {
+        return 6
+    }
+    return 7
 }
 
 const findNextRelevantStep = (state: WorkflowState, step: number): number => {
@@ -134,7 +143,8 @@ const stepIsRelevantBase = ({
     hasSSN,
     incomeBand,
     priorIncomeBand,
-    dobBand
+    dobBand,
+    student
 }: WorkflowState) => (step: number): boolean => {
     if (step === 0) {
         return true
@@ -163,7 +173,7 @@ const stepIsRelevantBase = ({
         case 6:
             return dobBand === '2003'
         case 7:
-            return dobBand === '1998'
+            return (dobBand === '1998') || (student ?? false)
         default:
             break
     }
@@ -196,6 +206,10 @@ export const getPriorIncomeBand = (state: RootState) => {
 
 export const getDOBBand = (state: RootState) => {
     return state.workflow.dobBand
+}
+
+export const getStudent = (state: RootState) => {
+    return state.workflow.student
 }
 
 export default workflowSlice.reducer;

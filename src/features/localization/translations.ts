@@ -46,7 +46,9 @@ export type WorkflowPrompts =
     'After Jan 2 2003 and before Jan 2, 2004' |
     'After Jan 1, 1998 and before Jan 1, 2003' |
     'Jan 1, 1998 or earlier' |
-    'You are not eligible for the EITC for workers without qualifying children because of your age'
+    'You are not eligible for the EITC for workers without qualifying children because of your age' |
+    'Student Step' |
+    'Were you a full time student for at least 5 months of 2021?'
 
 type WorkflowTranslation = Record<WorkflowPrompts, string>
 
@@ -89,13 +91,15 @@ const english: WorkflowTranslation = {
     ['If you earned more in 2019 than in 2021']: 'If you earned more in 2019 than in 2021',
     ['You are not eligible for the EITC because you did not have earned income in either 2021 or 2019']: 'You are not eligible for the EITC because you did not have earned income in either 2021 or 2019.   You may still want to file a 2021 return if you were eligible for the third stimulus payment and did not receive it.',
     ['You are not eligible for the EITC based on your 2019 income']: 'You are not eligible for the EITC based on your 2019 income.   You may still want to file a 2021 return if you were eligible for the third stimulus payment and did not receive it.',
-    ['DOB Step']: 'DOB Step',
+    ['DOB Step']: 'Date of Birth',
     ['When were you born?']: 'When were you born?',
     ['January 2, 2004 or later']: 'January 2, 2004 or later',
     ['After Jan 2 2003 and before Jan 2, 2004']: 'After Jan 2 2003 and before Jan 2, 2004',
     ['After Jan 1, 1998 and before Jan 1, 2003']: 'After Jan 1, 1998 and before Jan 1, 2003',
     ['Jan 1, 1998 or earlier']: 'Jan 1, 1998 or earlier',
-    ['You are not eligible for the EITC for workers without qualifying children because of your age']: 'You are not eligible for the EITC for workers without qualifying children because of your age.  You may still want to file a return if you had any taxes withheld from a paycheck in 2021.'
+    ['You are not eligible for the EITC for workers without qualifying children because of your age']: 'You are not eligible for the EITC for workers without qualifying children because of your age.  You may still want to file a return if you had any taxes withheld from a paycheck in 2021.',
+    ['Student Step']: 'Student Status',
+    ['Were you a full time student for at least 5 months of 2021?']: 'Were you a full time student for at least 5 months of 2021?'
 }
 
 export const translations: Record<SupportedLanguages, WorkflowTranslation> = {

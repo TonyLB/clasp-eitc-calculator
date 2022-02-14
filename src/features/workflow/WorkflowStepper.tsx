@@ -18,7 +18,9 @@ import {
     getPriorIncomeBand,
     setPriorIncomeBand,
     getDOBBand,
-    setDOBBand
+    setDOBBand,
+    getStudent,
+    setStudent
 } from './workflowSlice'
 import { SelectRows } from './SelectRows'
 import WorkflowStep from './WorkflowStep'
@@ -216,6 +218,36 @@ const DOBStep = () => {
         </WorkflowStep>
 }
 
+const StudentStep = () => {
+    const dispatch = useDispatch()
+    const localizer = useSelector(localize)
+    const student = useSelector(getStudent)
+    const currentValue = student === true ? 'Yes' : student === false ? 'No' : ''
+    return <WorkflowStep title='Student Step'>
+                <Box sx={{ width: "80%" }}>
+                    { localizer('Were you a full time student for at least 5 months of 2021?') }
+                </Box>
+                <br />
+                <SelectRows
+                    value={currentValue}
+                    rows={[{
+                        value: 'Yes',
+                        label: 'Yes',
+                        onSelect: () => {
+                            dispatch(setStudent(true))
+                        }
+                    },
+                    {
+                        value: 'No',
+                        label: 'No',
+                        onSelect: () => {
+                            dispatch(setStudent(false))
+                        }
+                    }]}
+                />
+        </WorkflowStep>
+}
+
 interface StepDispatchProps {
     activeStep: number;
 }
@@ -234,6 +266,8 @@ const StepDispatch: FunctionComponent<StepDispatchProps> = ({ activeStep }) => {
             return <IncomeStep priorYear />
         case 5:
             return <DOBStep />
+        case 6:
+            return <StudentStep />
         case 15:
             return <ResultStep />
         default:
