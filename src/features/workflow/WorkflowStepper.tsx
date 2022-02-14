@@ -13,43 +13,14 @@ import KeyboardArrowRight from '@mui/icons-material/KeyboardArrowRight'
 import { localize } from '../localization/localizationSlice'
 import { getActiveStep } from './workflowSlice'
 import { SelectRows } from './SelectRows'
+import WorkflowStep from './WorkflowStep'
 
 interface WorkflowStepperProps {}
 
 const ChildrenStep = () => {
     const dispatch = useDispatch()
     const localizer = useSelector(localize)
-    return <Box 
-        sx={{
-            height: "100%",
-            width: "100%",
-            flexGrow: 1,
-            display: "flex",
-            flexFlow: "column nowrap",
-            backgroundColor: "lightgrey"
-        }}
-    >
-        <Paper
-            square
-            elevation={0}
-            sx={{
-                display: 'flex',
-                alignItems: 'center',
-                height: 50,
-                pl: 2,
-                bgcolor: 'background.default',
-            }}
-        >
-            <Typography>{ localizer('Children Step') }</Typography>
-        </Paper>
-        <Box sx={{ flexGrow: 1, display: "flex", flexFlow: "column nowrap", justifyContent: "center" }}>
-            <Box sx={{
-                width: "100%",
-                display: "flex",
-                justifyContent: "center",
-                flexFlow: "row wrap",
-                // alignItems: "stretch"
-            }}>
+    return <WorkflowStep title='Children Step'>
                 <Box sx={{ width: "80%" }}>
                     { localizer('Do you have children') }
                 </Box>
@@ -66,32 +37,23 @@ const ChildrenStep = () => {
                         onSelect: () => {}
                     }]}
                 />
-            </Box>
-        </Box>
+        </WorkflowStep>
+}
 
-        <MobileStepper
-            variant="progress"
-            steps={3}
-            activeStep={0}
-            sx={{ flexGrow: 1 }}
-            nextButton={
-                <Button size="small" disabled={true}>
-                    Next
-                    <KeyboardArrowRight />
-                </Button>
-            }
-            backButton={
-                <Button size="small" disabled={true}>
-                    <KeyboardArrowLeft />
-                    Back
-                </Button>
-            }
-        />
+interface StepDispatchProps {
+    activeStep: number;
+}
 
-    </Box>
+const StepDispatch: FunctionComponent<StepDispatchProps> = ({ activeStep }) => {
+    switch(activeStep) {
+        case 0:
+            return <ChildrenStep />
+        default:
+            return <ChildrenStep />
+    }
 }
 
 export const WorkflowStepper: FunctionComponent<WorkflowStepperProps> = () => {
     const activeStep = useSelector(getActiveStep)
-    return <ChildrenStep />
+    return <StepDispatch activeStep={activeStep} />
 }
