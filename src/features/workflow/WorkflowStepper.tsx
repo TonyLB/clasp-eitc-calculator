@@ -30,7 +30,9 @@ import {
     getResident,
     setResident,
     getDisability,
-    setDisability
+    setDisability,
+    getLivingWithSomeone,
+    setLivingWithSomeone
 } from './workflowSlice'
 import { SelectRows } from './SelectRows'
 import WorkflowStep from './WorkflowStep'
@@ -326,6 +328,13 @@ const StepDispatch: FunctionComponent<StepDispatchProps> = ({ activeStep }) => {
                 setValue={setDisability}
                 title='Disability Step'
                 question='Were you "permanently and totally disabled" in 2021?'
+            />
+        case 11:
+            return <SimpleYesNoStep
+                getValue={getLivingWithSomeone}
+                setValue={setLivingWithSomeone}
+                title='Living Situation Step'
+                question='Did you live at least half the year with another taxpayer?'
             />
         case 15:
             return <ResultStep />

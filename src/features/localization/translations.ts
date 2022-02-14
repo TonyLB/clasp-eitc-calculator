@@ -59,7 +59,9 @@ export type WorkflowPrompts =
     'In 2021, did you live in the United States for more than half of the year?' |
     'You are not eligible for the EITC because you did not live in the US' |
     'Disability Step' |
-    'Were you "permanently and totally disabled" in 2021?'
+    'Were you "permanently and totally disabled" in 2021?' |
+    'Living Situation Step' |
+    'Did you live at least half the year with another taxpayer?'
 
 type WorkflowTranslation = Record<WorkflowPrompts, string>
 
@@ -121,7 +123,10 @@ const english: WorkflowTranslation = {
     ['In 2021, did you live in the United States for more than half of the year?']: 'In 2021, did you live in the United States for more than half of the year?',
     ['You are not eligible for the EITC because you did not live in the US']: 'You are not eligible for the EITC because you did not live in the US for more than half the year. You may still need to file a tax return.',
     ['Disability Step']: 'Disability',
-    ['Were you "permanently and totally disabled" in 2021?']: 'Were you "permanently and totally disabled" in 2021?'
+    ['Were you "permanently and totally disabled" in 2021?']: 'Were you "permanently and totally disabled" in 2021?',
+    ['Living Situation Step']: 'Living Situation',
+    ['Did you live at least half the year with another taxpayer?']: 'Did you live at least half the year with another taxpayer?',
+
 }
 
 export const translations: Record<SupportedLanguages, WorkflowTranslation> = {

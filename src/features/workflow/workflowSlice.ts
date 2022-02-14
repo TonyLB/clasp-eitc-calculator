@@ -19,12 +19,15 @@ export interface WorkflowState {
     homeless?: boolean;
     resident?: boolean;
     disability?: boolean;
+    livingWithSomeone?: boolean;
 }
 
 const initialState: WorkflowState = {
     choseToProceed: false,
     activeStep: 0
 };
+
+const resultStep = 15
 
 export const workflowSlice = createSlice({
     name: 'workflow',
@@ -68,6 +71,9 @@ export const workflowSlice = createSlice({
         setDisability: (state, action: PayloadAction<boolean>) => {
             state.disability = action.payload
         },
+        setLivingWithSomeone: (state, action: PayloadAction<boolean>) => {
+            state.livingWithSomeone = action.payload
+        },
         nextRelevantStep: (state) => {
             const nextStep = findNextRelevantStep(state, state.activeStep)
             state.activeStep = nextStep
@@ -92,6 +98,7 @@ export const {
     setHomeless,
     setResident,
     setDisability,
+    setLivingWithSomeone,
     nextRelevantStep,
     backOneStep
 } = workflowSlice.actions;
@@ -112,7 +119,8 @@ export const getNextStepNeeded = (state: RootState): number => {
         fosterCare,
         homeless,
         resident,
-        disability
+        disability,
+        livingWithSomeone
     } = state.workflow
     if (dependentChildren === undefined) {
         return 0
@@ -147,12 +155,21 @@ export const getNextStepNeeded = (state: RootState): number => {
     if (disability === undefined) {
         return 10
     }
-    return 11
+    if (
+            (
+                disability ||
+                ['2004+', '2003'].includes(dobBand || '') ||
+                (dobBand === '1998' && student)
+            ) && (livingWithSomeone === undefined)
+        ) {
+        return 11
+    }
+    return 14
 }
 
 const findNextRelevantStep = (state: WorkflowState, step: number): number => {
-    if (step === 15) {
-        return 15
+    if (step === resultStep) {
+        return resultStep
     }
     if (stepIsRelevantBase(state)(step + 1)) {
         return step + 1
@@ -180,33 +197,34 @@ const stepIsRelevantBase = ({
     student,
     fosterCare,
     homeless,
-    resident
+    resident,
+    disability,
 }: WorkflowState) => (step: number): boolean => {
     if (step === 0) {
         return true
     }
     if (dependentChildren) {
-        return (step >= 15) || (step === 0)
+        return (step >= resultStep) || (step === 0)
     }
     if (hasSSN === false) {
-        return (step >= 15) || (step <= 2)
+        return (step >= resultStep) || (step <= 2)
     }
     if (incomeBand === 'Above') {
-        return (step >= 15) || (step <= 3)
+        return (step >= resultStep) || (step <= 3)
     }
     if (incomeBand === 'Poverty' && step === 4) {
         return false
     }
     if (priorIncomeBand === 'Above' || (incomeBand === 'None' && priorIncomeBand === 'None')) {
-        return (step >= 15) || (step <= 4)
+        return (step >= resultStep) || (step <= 4)
     }
-    if (dobBand === '2004+' && step < 15 && step > 5) {
+    if (dobBand === '2004+' && step < resultStep && step > 5) {
         return false
     }
-    if (homeless === false && step < 15 && step > 8) {
+    if (homeless === false && step < resultStep && step > 8) {
         return false
     }
-    if (resident === false && step < 15 && step > 9) {
+    if (resident === false && step < resultStep && step > 9) {
         return false
     }
     switch(step) {
@@ -218,6 +236,10 @@ const stepIsRelevantBase = ({
             return (dobBand === '1998') || (student ?? false)
         case 8:
             return fosterCare === false
+        case 11:
+            return (disability ||
+                (['2004+', '2003'].includes(dobBand || '') ||
+                (dobBand === '1998' && student))) ?? false
         default:
             break
     }
@@ -270,6 +292,10 @@ export const getResident = (state: RootState) => {
 
 export const getDisability = (state: RootState) => {
     return state.workflow.disability
+}
+
+export const getLivingWithSomeone = (state: RootState) => {
+    return state.workflow.livingWithSomeone
 }
 
 export default workflowSlice.reducer;
