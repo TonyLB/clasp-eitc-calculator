@@ -3,10 +3,12 @@ import { RootState } from '../../app/store'
 
 export interface WorkflowState {
     choseToProceed: boolean;
+    activeStep: number;
 }
 
 const initialState: WorkflowState = {
-    choseToProceed: false
+    choseToProceed: false,
+    activeStep: 0
 };
 
 export const workflowSlice = createSlice({
@@ -23,7 +25,7 @@ export const { chooseToProceed } = workflowSlice.actions;
 
 export const choseToProceed = (state: RootState): boolean =>  (state.workflow.choseToProceed)
 
-export const getActiveStep = (state: RootState): number => (1)
+export const getActiveStep = (state: RootState): number => (state.workflow.activeStep)
 
 interface StepProperty {
     completed: boolean;
