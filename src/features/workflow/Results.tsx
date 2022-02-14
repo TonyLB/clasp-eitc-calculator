@@ -7,7 +7,8 @@ import { localize } from '../localization/localizationSlice'
 import {
     getDependentChildren,
     getHasSSN,
-    getIncomeBand
+    getIncomeBand,
+    getPriorIncomeBand
 } from './workflowSlice'
 import WorkflowStep from './WorkflowStep'
 import InDevelopment from './InDevelopment'
@@ -17,6 +18,7 @@ export const ResultStep = () => {
     const dependentChildren = useSelector(getDependentChildren)
     const hasSSN = useSelector(getHasSSN)
     const incomeBand = useSelector(getIncomeBand)
+    const priorIncomeBand = useSelector(getPriorIncomeBand)
     if (dependentChildren) {
         return <WorkflowStep title='Results'>
             <Box sx={{ width: "80%", paddingBottom: "10px" }}>
@@ -53,6 +55,37 @@ export const ResultStep = () => {
                 { localizer('for information on how to file')}
             </Box>
         </WorkflowStep>
+    }
+    if (priorIncomeBand === 'Above') {
+        return <WorkflowStep title='Results'>
+            <Box sx={{ width: "80%", paddingBottom: "10px" }}>
+                { localizer('You are not eligible for the EITC based on your 2019 income') }
+            </Box>
+            <br />
+            <Box sx={{ width: "80%" }}>
+                { localizer('Go to') }
+                &nbsp;
+                <a href="https://www.getyourrefund.org/en">{ localizer('GetYourRefund') }</a>
+                &nbsp;
+                { localizer('for information on how to file')}
+            </Box>
+        </WorkflowStep>
+    }
+    if (incomeBand === 'None' && priorIncomeBand === 'None') {
+        return <WorkflowStep title='Results'>
+            <Box sx={{ width: "80%", paddingBottom: "10px" }}>
+                { localizer('You are not eligible for the EITC because you did not have earned income in either 2021 or 2019') }
+            </Box>
+            <br />
+            <Box sx={{ width: "80%" }}>
+                { localizer('Go to') }
+                &nbsp;
+                <a href="https://www.getyourrefund.org/en">{ localizer('GetYourRefund') }</a>
+                &nbsp;
+                { localizer('for information on how to file')}
+            </Box>
+        </WorkflowStep>
+
     }
     return <InDevelopment />
 }
