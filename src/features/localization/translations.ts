@@ -19,7 +19,11 @@ export type WorkflowPrompts =
     'for information on how to file' |
     'Filing Joint Step' |
     'Use this tool to figure out whether you are likely' |
-    'Are you married and filing a joint return?'
+    'Are you married and filing a joint return?' |
+    'SSN Step' |
+    'Do you have a social security number that authorizes you to work?' |
+    'Do both you and your spouse have a social security number that authorizes you to work?' |
+    'If you do not have a SSN'
 
 type WorkflowTranslation = Record<WorkflowPrompts, string>
 
@@ -41,7 +45,12 @@ const english: WorkflowTranslation = {
     ['for information on how to file']: 'for information on how to file.',
     ['Filing Joint Step']: 'Married Filing Joint',
     ['Use this tool to figure out whether you are likely']: 'Use this tool to figure out whether you are likely to qualify for the Earned Income Tax Credit (EITC) for workers without qualifying children.  This credit was expanded in 2021, so you may qualify even if you have never received it before.',
-    ['Are you married and filing a joint return?']: 'Are you married and filing a joint return?'
+    ['Are you married and filing a joint return?']: 'Are you married and filing a joint return?',
+    ['SSN Step']: 'Social Security Number',
+    ['Do you have a social security number that authorizes you to work?']: 'Do you have a social security number that authorizes you to work?',
+    ['Do both you and your spouse have a social security number that authorizes you to work?']: 'Do both you and your spouse have a social security number that authorizes you to work?',
+    ['If you do not have a SSN']: 'If you do not have a SSN, you cannot claim the federal EITC, although some states  (Maryland, New Mexico, Oregon, Washington, Colorado, and California) allow taxpayers with ITINs to claim their state EITCs.'
+
 }
 
 export const translations: Record<SupportedLanguages, WorkflowTranslation> = {

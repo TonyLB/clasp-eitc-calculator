@@ -6,6 +6,7 @@ import {
 import { localize } from '../localization/localizationSlice'
 import {
     getDependentChildren,
+    getHasSSN
 } from './workflowSlice'
 import WorkflowStep from './WorkflowStep'
 import InDevelopment from './InDevelopment'
@@ -13,6 +14,7 @@ import InDevelopment from './InDevelopment'
 export const ResultStep = () => {
     const localizer = useSelector(localize)
     const dependentChildren = useSelector(getDependentChildren)
+    const hasSSN = useSelector(getHasSSN)
     if (dependentChildren) {
         return <WorkflowStep title='Results'>
             <Box sx={{ width: "80%", paddingBottom: "10px" }}>
@@ -27,6 +29,14 @@ export const ResultStep = () => {
                 { localizer('for information on how to file')}
             </Box>
         </WorkflowStep>
+    }
+    if (hasSSN === false) {
+        return <WorkflowStep title='Results'>
+            <Box sx={{ width: "80%", paddingBottom: "10px" }}>
+                { localizer('If you do not have a SSN') }
+            </Box>
+        </WorkflowStep>
+
     }
     return <InDevelopment />
 }
