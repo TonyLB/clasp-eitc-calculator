@@ -17,6 +17,7 @@ import { SelectRows } from './SelectRows'
 interface WorkflowStepperProps {}
 
 const ChildrenStep = () => {
+    const dispatch = useDispatch()
     const localizer = useSelector(localize)
     return <Box 
         sx={{
@@ -56,11 +57,13 @@ const ChildrenStep = () => {
                 <SelectRows
                     rows={[{
                         value: 'Yes',
-                        label: 'Yes'
+                        label: 'Yes',
+                        onSelect: () => {}
                     },
                     {
                         value: 'No',
-                        label: 'No'
+                        label: 'No',
+                        onSelect: () => {}
                     }]}
                 />
             </Box>

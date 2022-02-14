@@ -11,6 +11,7 @@ import { WorkflowPrompts } from '../localization/translations'
 interface SelectRowMetaData<L extends string> {
     value: L;
     label: WorkflowPrompts;
+    onSelect: (value: L) => void;
 }
 
 interface SelectRowsProps<L extends string> {
