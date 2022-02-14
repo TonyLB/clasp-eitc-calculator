@@ -4,6 +4,7 @@ import {
     Box
 } from "@mui/material"
 
+import { RootState } from '../../app/store'
 import { localize } from '../localization/localizationSlice'
 import {
     getActiveStep,
@@ -20,23 +21,38 @@ import {
     getDOBBand,
     setDOBBand,
     getStudent,
-    setStudent
+    setStudent,
+    getFosterCare,
+    setFosterCare
 } from './workflowSlice'
 import { SelectRows } from './SelectRows'
 import WorkflowStep from './WorkflowStep'
 import InDevelopment from './InDevelopment'
 import ResultStep from './Results'
+import { WorkflowPrompts } from '../localization/translations'
 
 interface WorkflowStepperProps {}
 
-const ChildrenStep = () => {
+interface SimpleYesNoStepProps {
+    getValue: (state: RootState) => boolean | undefined;
+    setValue: typeof setStudent;
+    title: WorkflowPrompts;
+    question: WorkflowPrompts;
+}
+
+const SimpleYesNoStep: FunctionComponent<SimpleYesNoStepProps> = ({
+    getValue,
+    setValue,
+    title,
+    question
+}) => {
     const dispatch = useDispatch()
     const localizer = useSelector(localize)
-    const dependentChildren = useSelector(getDependentChildren)
-    const currentValue = dependentChildren === true ? 'Yes' : dependentChildren === false ? 'No' : ''
-    return <WorkflowStep title='Children Step'>
+    const selectedValue = useSelector(getValue)
+    const currentValue = selectedValue === true ? 'Yes' : selectedValue === false ? 'No' : ''
+    return <WorkflowStep title={title}>
                 <Box sx={{ width: "80%" }}>
-                    { localizer('Do you have children') }
+                    { localizer(question) }
                 </Box>
                 <br />
                 <SelectRows
@@ -45,14 +61,14 @@ const ChildrenStep = () => {
                         value: 'Yes',
                         label: 'Yes',
                         onSelect: () => {
-                            dispatch(setDependentChildren(true))
+                            dispatch(setValue(true))
                         }
                     },
                     {
                         value: 'No',
                         label: 'No',
                         onSelect: () => {
-                            dispatch(setDependentChildren(false))
+                            dispatch(setValue(false))
                         }
                     }]}
                 />
@@ -218,36 +234,6 @@ const DOBStep = () => {
         </WorkflowStep>
 }
 
-const StudentStep = () => {
-    const dispatch = useDispatch()
-    const localizer = useSelector(localize)
-    const student = useSelector(getStudent)
-    const currentValue = student === true ? 'Yes' : student === false ? 'No' : ''
-    return <WorkflowStep title='Student Step'>
-                <Box sx={{ width: "80%" }}>
-                    { localizer('Were you a full time student for at least 5 months of 2021?') }
-                </Box>
-                <br />
-                <SelectRows
-                    value={currentValue}
-                    rows={[{
-                        value: 'Yes',
-                        label: 'Yes',
-                        onSelect: () => {
-                            dispatch(setStudent(true))
-                        }
-                    },
-                    {
-                        value: 'No',
-                        label: 'No',
-                        onSelect: () => {
-                            dispatch(setStudent(false))
-                        }
-                    }]}
-                />
-        </WorkflowStep>
-}
-
 interface StepDispatchProps {
     activeStep: number;
 }
@@ -255,7 +241,12 @@ interface StepDispatchProps {
 const StepDispatch: FunctionComponent<StepDispatchProps> = ({ activeStep }) => {
     switch(activeStep) {
         case 0:
-            return <ChildrenStep />
+            return <SimpleYesNoStep
+                getValue={getDependentChildren}
+                setValue={setDependentChildren}
+                title='Children Step'
+                question='Do you have children'
+            />
         case 1:
             return <FilingJointStep />
         case 2:
@@ -267,7 +258,19 @@ const StepDispatch: FunctionComponent<StepDispatchProps> = ({ activeStep }) => {
         case 5:
             return <DOBStep />
         case 6:
-            return <StudentStep />
+            return <SimpleYesNoStep
+                getValue={getStudent}
+                setValue={setStudent}
+                title='Student Step'
+                question='Were you a full time student for at least 5 months of 2021?'
+            />
+        case 7:
+            return <SimpleYesNoStep
+                getValue={getFosterCare}
+                setValue={setFosterCare}
+                title='Foster Care Step'
+                question='Were you in formal foster care at any time between the ages of 14-17 years old?'
+            />
         case 15:
             return <ResultStep />
         default:

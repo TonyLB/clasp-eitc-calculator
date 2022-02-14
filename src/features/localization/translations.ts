@@ -48,7 +48,9 @@ export type WorkflowPrompts =
     'Jan 1, 1998 or earlier' |
     'You are not eligible for the EITC for workers without qualifying children because of your age' |
     'Student Step' |
-    'Were you a full time student for at least 5 months of 2021?'
+    'Were you a full time student for at least 5 months of 2021?' |
+    'Foster Care Step' |
+    'Were you in formal foster care at any time between the ages of 14-17 years old?'
 
 type WorkflowTranslation = Record<WorkflowPrompts, string>
 
@@ -99,7 +101,9 @@ const english: WorkflowTranslation = {
     ['Jan 1, 1998 or earlier']: 'Jan 1, 1998 or earlier',
     ['You are not eligible for the EITC for workers without qualifying children because of your age']: 'You are not eligible for the EITC for workers without qualifying children because of your age.  You may still want to file a return if you had any taxes withheld from a paycheck in 2021.',
     ['Student Step']: 'Student Status',
-    ['Were you a full time student for at least 5 months of 2021?']: 'Were you a full time student for at least 5 months of 2021?'
+    ['Were you a full time student for at least 5 months of 2021?']: 'Were you a full time student for at least 5 months of 2021?',
+    ['Foster Care Step']: 'Foster Care Status',
+    ['Were you in formal foster care at any time between the ages of 14-17 years old?']: 'Were you in formal foster care at any time between the ages of 14-17 years old?',
 }
 
 export const translations: Record<SupportedLanguages, WorkflowTranslation> = {
