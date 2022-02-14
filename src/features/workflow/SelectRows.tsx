@@ -23,22 +23,26 @@ export const SelectRows = <L extends string>({ value: currentValue, rows }: Sele
     const localizer = useSelector(localize)
     return <React.Fragment>
         {
-            rows.map(({ value, label }) => {
+            rows.map(({ value, label, onSelect }) => {
                 const selected = value === currentValue
                 return <Box key={value} sx={{
                     width: "80%",
                     padding: "15px"
                 }}>
-                    <Box key={value} sx={{
-                        width: "100%",
-                        display: "flex",
-                        flexFlow: "row wrap",
-                        borderRadius: "5px",
-                        borderWidth: "1px",
-                        borderStyle: "solid",
-                        alignItems: "flex-start",
-                        backgroundColor: "white"
-                    }}>
+                    <Box
+                        key={value}
+                        sx={{
+                            width: "100%",
+                            display: "flex",
+                            flexFlow: "row wrap",
+                            borderRadius: "5px",
+                            borderWidth: "1px",
+                            borderStyle: "solid",
+                            alignItems: "flex-start",
+                            backgroundColor: "white"
+                        }}
+                        onClick={() => { onSelect(value) }}
+                    >
                         <Box sx={{
                             width: '20px'
                         }}>
