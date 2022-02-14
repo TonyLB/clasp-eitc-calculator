@@ -54,7 +54,10 @@ export type WorkflowPrompts =
     'Homeless Step' |
     'In 2021, were you an unaccompanied homeless youth' |
     'I\'m not sure, tell me more' |
-    'You are not eligible for the EITC for workers without qualifying children, because of your age and student status'
+    'You are not eligible for the EITC for workers without qualifying children, because of your age and student status' |
+    'Residency Step' |
+    'In 2021, did you live in the United States for more than half of the year?' |
+    'You are not eligible for the EITC because you did not live in the US'
 
 type WorkflowTranslation = Record<WorkflowPrompts, string>
 
@@ -111,7 +114,10 @@ const english: WorkflowTranslation = {
     ['Homeless Step']: 'Homeless/Unaccompanied Status',
     ['In 2021, were you an unaccompanied homeless youth']: ' In 2021, were you an unaccompanied homeless youth, or a youth who was self-supporting and at risk of homelessness (experiencing homelessness without a parent or guardian. This includes staying temporarily with other people, in a shelter, outside, or in places not meant for human habitation).',
     ['I\'m not sure, tell me more']: 'I\'m not sure, tell me more',
-    ['You are not eligible for the EITC for workers without qualifying children, because of your age and student status']: 'You are not eligible for the EITC for workers without qualifying children, because of your age and student status.  You may still want to file a return if you had any taxes withheld from a paycheck in 2021 or to claim the third stimulus payment if you did not receive it already.'
+    ['You are not eligible for the EITC for workers without qualifying children, because of your age and student status']: 'You are not eligible for the EITC for workers without qualifying children, because of your age and student status.  You may still want to file a return if you had any taxes withheld from a paycheck in 2021 or to claim the third stimulus payment if you did not receive it already.',
+    ['Residency Step']: 'Residency',
+    ['In 2021, did you live in the United States for more than half of the year?']: 'In 2021, did you live in the United States for more than half of the year?',
+    ['You are not eligible for the EITC because you did not live in the US']: 'You are not eligible for the EITC because you did not live in the US for more than half the year. You may still need to file a tax return.',
 }
 
 export const translations: Record<SupportedLanguages, WorkflowTranslation> = {
