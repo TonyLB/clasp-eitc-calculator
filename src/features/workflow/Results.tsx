@@ -9,7 +9,8 @@ import {
     getHasSSN,
     getIncomeBand,
     getPriorIncomeBand,
-    getDOBBand
+    getDOBBand,
+    getHomeless
 } from './workflowSlice'
 import WorkflowStep from './WorkflowStep'
 import InDevelopment from './InDevelopment'
@@ -21,6 +22,7 @@ export const ResultStep = () => {
     const incomeBand = useSelector(getIncomeBand)
     const priorIncomeBand = useSelector(getPriorIncomeBand)
     const dobBand = useSelector(getDOBBand)
+    const homeless = useSelector(getHomeless)
     if (dependentChildren) {
         return <WorkflowStep title='Results'>
             <Box sx={{ width: "80%", paddingBottom: "10px" }}>
@@ -94,7 +96,13 @@ export const ResultStep = () => {
                 { localizer('You are not eligible for the EITC for workers without qualifying children because of your age') }
             </Box>
         </WorkflowStep>
-
+    }
+    if (homeless === false) {
+        return <WorkflowStep title='Results'>
+            <Box sx={{ width: "80%", paddingBottom: "10px" }}>
+                { localizer('You are not eligible for the EITC for workers without qualifying children, because of your age and student status') }
+            </Box>
+        </WorkflowStep>
     }
     return <InDevelopment />
 }

@@ -1,7 +1,8 @@
 import React, { FunctionComponent } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 import {
-    Box
+    Box,
+    Button
 } from "@mui/material"
 
 import { RootState } from '../../app/store'
@@ -23,7 +24,9 @@ import {
     getStudent,
     setStudent,
     getFosterCare,
-    setFosterCare
+    setFosterCare,
+    getHomeless,
+    setHomeless,
 } from './workflowSlice'
 import { SelectRows } from './SelectRows'
 import WorkflowStep from './WorkflowStep'
@@ -234,6 +237,39 @@ const DOBStep = () => {
         </WorkflowStep>
 }
 
+const HomelessStep = () => {
+    const dispatch = useDispatch()
+    const localizer = useSelector(localize)
+    const homeless = useSelector(getHomeless)
+    const currentValue = homeless === true ? 'Yes' : homeless === false ? 'No' : ''
+    return <WorkflowStep title='Homeless Step'>
+                <Box sx={{ width: "80%" }}>
+                    { localizer('In 2021, were you an unaccompanied homeless youth') }
+                </Box>
+                <br />
+                <Button variant="contained" onClick={() => { window.open("https://schoolhouseconnection.org/am-i-experiencing-homelessness", "_blank")}}>
+                    { localizer('I\'m not sure, tell me more') }
+                </Button>
+                <SelectRows
+                    value={currentValue}
+                    rows={[{
+                        value: 'Yes',
+                        label: 'Yes',
+                        onSelect: () => {
+                            dispatch(setHomeless(true))
+                        }
+                    },
+                    {
+                        value: 'No',
+                        label: 'No',
+                        onSelect: () => {
+                            dispatch(setHomeless(false))
+                        }
+                    }]}
+                />
+        </WorkflowStep>
+}
+
 interface StepDispatchProps {
     activeStep: number;
 }
@@ -271,6 +307,8 @@ const StepDispatch: FunctionComponent<StepDispatchProps> = ({ activeStep }) => {
                 title='Foster Care Step'
                 question='Were you in formal foster care at any time between the ages of 14-17 years old?'
             />
+        case 8:
+            return <HomelessStep />
         case 15:
             return <ResultStep />
         default:

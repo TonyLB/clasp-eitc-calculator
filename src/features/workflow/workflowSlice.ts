@@ -16,6 +16,7 @@ export interface WorkflowState {
     dobBand?: DOBBand;
     student?: boolean;
     fosterCare?: boolean;
+    homeless?: boolean;
 }
 
 const initialState: WorkflowState = {
@@ -56,6 +57,9 @@ export const workflowSlice = createSlice({
         setFosterCare: (state, action: PayloadAction<boolean>) => {
             state.fosterCare = action.payload
         },
+        setHomeless: (state, action: PayloadAction<boolean>) => {
+            state.homeless = action.payload
+        },
         nextRelevantStep: (state) => {
             const nextStep = findNextRelevantStep(state, state.activeStep)
             state.activeStep = nextStep
@@ -77,6 +81,7 @@ export const {
     setDOBBand,
     setStudent,
     setFosterCare,
+    setHomeless,
     nextRelevantStep,
     backOneStep
 } = workflowSlice.actions;
@@ -94,7 +99,8 @@ export const getNextStepNeeded = (state: RootState): number => {
         priorIncomeBand,
         dobBand,
         student,
-        fosterCare
+        fosterCare,
+        homeless
     } = state.workflow
     if (dependentChildren) {
         return 15
@@ -123,7 +129,10 @@ export const getNextStepNeeded = (state: RootState): number => {
     if (student === true && fosterCare === undefined) {
         return 7
     }
-    return 8
+    if (fosterCare === false && homeless === undefined) {
+        return 8
+    }
+    return 9
 }
 
 const findNextRelevantStep = (state: WorkflowState, step: number): number => {
@@ -154,7 +163,8 @@ const stepIsRelevantBase = ({
     priorIncomeBand,
     dobBand,
     student,
-    fosterCare
+    fosterCare,
+    homeless
 }: WorkflowState) => (step: number): boolean => {
     if (step === 0) {
         return true
@@ -174,8 +184,11 @@ const stepIsRelevantBase = ({
     if (priorIncomeBand === 'Above' || (incomeBand === 'None' && priorIncomeBand === 'None')) {
         return (step >= 15) || (step <= 4)
     }
-    if (dobBand === '2004+') {
-        return (step >= 15) || (step <= 5)
+    if (dobBand === '2004+' && step < 15 && step > 5) {
+        return false
+    }
+    if (homeless === false && step < 15 && step > 8) {
+        return false
     }
     switch(step) {
         case 4:
@@ -226,6 +239,10 @@ export const getStudent = (state: RootState) => {
 
 export const getFosterCare = (state: RootState) => {
     return state.workflow.fosterCare
+}
+
+export const getHomeless = (state: RootState) => {
+    return state.workflow.homeless
 }
 
 export default workflowSlice.reducer;
