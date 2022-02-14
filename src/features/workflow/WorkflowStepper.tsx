@@ -27,6 +27,8 @@ import {
     setFosterCare,
     getHomeless,
     setHomeless,
+    getResident,
+    setResident
 } from './workflowSlice'
 import { SelectRows } from './SelectRows'
 import WorkflowStep from './WorkflowStep'
@@ -309,6 +311,13 @@ const StepDispatch: FunctionComponent<StepDispatchProps> = ({ activeStep }) => {
             />
         case 8:
             return <HomelessStep />
+        case 9:
+            return <SimpleYesNoStep
+                getValue={getResident}
+                setValue={setResident}
+                title='Residency Step'
+                question='In 2021, did you live in the United States for more than half of the year?'
+            />
         case 15:
             return <ResultStep />
         default:

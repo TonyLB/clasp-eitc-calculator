@@ -10,7 +10,8 @@ import {
     getIncomeBand,
     getPriorIncomeBand,
     getDOBBand,
-    getHomeless
+    getHomeless,
+    getResident
 } from './workflowSlice'
 import WorkflowStep from './WorkflowStep'
 import InDevelopment from './InDevelopment'
@@ -23,6 +24,7 @@ export const ResultStep = () => {
     const priorIncomeBand = useSelector(getPriorIncomeBand)
     const dobBand = useSelector(getDOBBand)
     const homeless = useSelector(getHomeless)
+    const resident = useSelector(getResident)
     if (dependentChildren) {
         return <WorkflowStep title='Results'>
             <Box sx={{ width: "80%", paddingBottom: "10px" }}>
@@ -101,6 +103,21 @@ export const ResultStep = () => {
         return <WorkflowStep title='Results'>
             <Box sx={{ width: "80%", paddingBottom: "10px" }}>
                 { localizer('You are not eligible for the EITC for workers without qualifying children, because of your age and student status') }
+            </Box>
+        </WorkflowStep>
+    }
+    if (resident === false) {
+        return <WorkflowStep title='Results'>
+            <Box sx={{ width: "80%", paddingBottom: "10px" }}>
+                { localizer('You are not eligible for the EITC because you did not live in the US') }
+            </Box>
+            <br />
+            <Box sx={{ width: "80%" }}>
+                { localizer('Go to') }
+                &nbsp;
+                <a href="https://www.getyourrefund.org/en">{ localizer('GetYourRefund') }</a>
+                &nbsp;
+                { localizer('for information on how to file')}
             </Box>
         </WorkflowStep>
     }
