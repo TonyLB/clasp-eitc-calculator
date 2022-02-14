@@ -31,7 +31,8 @@ export type WorkflowPrompts =
     'None' |
     'At least $1 up to $27,380' |
     'More than $27,380' |
-    'At least $1 up to $21,430' |
+    'At least $1 up to $4,300' |
+    'At least $4,301 up to $21,430' |
     'More than $21,430' |
     'You are not eligible for the EITC.  However, you are legally required to file a federal tax return' |
     'Prior Earned Income Step' |
@@ -66,7 +67,11 @@ export type WorkflowPrompts =
     'Are you their child' |
     'Relative Age Step' |
     'Are you younger than them (or their spouse, if they file jointly)?' |
-    'You do not qualify for the Earned Income Tax Credit because you are the qualifying child'
+    'You do not qualify for the Earned Income Tax Credit because you are the qualifying child' |
+    'Living Expenses Step' |
+    'Did another person provide more than half of your living expenses' |
+    'You likely qualify for a credit' |
+    'If you’re using the 1040 form'
 
 type WorkflowTranslation = Record<WorkflowPrompts, string>
 
@@ -100,7 +105,8 @@ const english: WorkflowTranslation = {
     ['None']: 'None',
     ['At least $1 up to $27,380']: 'At least $1 up to $27,380',
     ['More than $27,380']: 'More than $27,380',
-    ['At least $1 up to $21,430']: 'At least $1 up to $21,430',
+    ['At least $1 up to $4,300']: 'At least $1 up to $4,300',
+    ['At least $4,301 up to $21,430']: 'At least $4,301 up to $21,430',
     ['More than $21,430']: 'More than $21,430',
     ['You are not eligible for the EITC.  However, you are legally required to file a federal tax return']: 'You are not eligible for the EITC.  However, you are legally required to file a federal tax return.',
     ['Prior Earned Income Step']: 'Prior Year Earned Income',
@@ -135,8 +141,11 @@ const english: WorkflowTranslation = {
     ['Are you their child']: 'Are you their child, stepchild, foster child or a descendent of any of them (e.g. grandchild, great-grandchild)?  Or their sibling (brother or sister), half-sibling, step-sibling, or a descendant of any of them (e.g. niece or nephew, great-niece or great-nephew)?',
     ['Relative Age Step']: 'Relative Age',
     ['Are you younger than them (or their spouse, if they file jointly)?']: 'Are you younger than them (or their spouse, if they file jointly)?',
-    ['You do not qualify for the Earned Income Tax Credit because you are the qualifying child']: 'You do not qualify for the Earned Income Tax Credit because you are the qualifying child of another taxpayer.'
-
+    ['You do not qualify for the Earned Income Tax Credit because you are the qualifying child']: 'You do not qualify for the Earned Income Tax Credit because you are the qualifying child of another taxpayer.',
+    ['Living Expenses Step']: 'Living Expenses',
+    ['Did another person provide more than half of your living expenses']: 'Did another person (or person and their spouse) provide more than half of your living expenses for 2021? (Note: Foster care payments are considered support provided by the agency, not by the foster parent).',
+    ['You likely qualify for a credit']: 'You likely qualify for a credit of up to $1502 through the earned income tax credit! To claim the credit, indicate on your taxes that you would like to claim EITC or EIC (depending on the software it can appear either way).',
+    ['If you’re using the 1040 form']: ' If you’re using the 1040 form instead of a software, your EITC is located on line 27a . Indicate that “you were born after 1/1/1998, and before 1/2/2004, and you satisfy all the other requirements for taxpayers who are at least age 18, to claim the EIC.,'
 }
 
 export const translations: Record<SupportedLanguages, WorkflowTranslation> = {

@@ -36,7 +36,9 @@ import {
     getFamilyConnection,
     setFamilyConnection,
     getYounger,
-    setYounger
+    setYounger,
+    getLivingExpensesPaid,
+    setLivingExpensesPaid
 } from './workflowSlice'
 import { SelectRows } from './SelectRows'
 import WorkflowStep from './WorkflowStep'
@@ -186,9 +188,16 @@ const IncomeStep = ({ priorYear }: { priorYear?: boolean }) => {
                             dispatch(setSelectedIncomeBand('None'))
                         }
                     },
+                    ...(filingJoint ? [] : [{
+                            value: 'PossibleDependent',
+                            label: 'At least $1 up to $4,300',
+                            onSelect: () => {
+                                dispatch(setSelectedIncomeBand('PossibleDependent'))
+                            }
+                    } as any]),
                     {
                         value: 'Poverty',
-                        label: filingJoint ? 'At least $1 up to $27,380' : 'At least $1 up to $21,430',
+                        label: filingJoint ? 'At least $1 up to $27,380' : 'At least $4,301 up to $21,430',
                         onSelect: () => {
                             dispatch(setSelectedIncomeBand('Poverty'))
                         }
@@ -353,6 +362,13 @@ const StepDispatch: FunctionComponent<StepDispatchProps> = ({ activeStep }) => {
                 setValue={setYounger}
                 title='Relative Age Step'
                 question='Are you younger than them (or their spouse, if they file jointly)?'
+            />
+        case 14:
+            return <SimpleYesNoStep
+                getValue={getLivingExpensesPaid}
+                setValue={setLivingExpensesPaid}
+                title='Living Expenses Step'
+                question='Did another person provide more than half of your living expenses'
             />
         case 15:
             return <ResultStep />
