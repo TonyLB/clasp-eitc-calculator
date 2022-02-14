@@ -15,6 +15,7 @@ export interface WorkflowState {
     priorIncomeBand?: IncomeBand;
     dobBand?: DOBBand;
     student?: boolean;
+    fosterCare?: boolean;
 }
 
 const initialState: WorkflowState = {
@@ -52,6 +53,9 @@ export const workflowSlice = createSlice({
         setStudent: (state, action: PayloadAction<boolean>) => {
             state.student = action.payload
         },
+        setFosterCare: (state, action: PayloadAction<boolean>) => {
+            state.fosterCare = action.payload
+        },
         nextRelevantStep: (state) => {
             const nextStep = findNextRelevantStep(state, state.activeStep)
             state.activeStep = nextStep
@@ -72,6 +76,7 @@ export const {
     setPriorIncomeBand,
     setDOBBand,
     setStudent,
+    setFosterCare,
     nextRelevantStep,
     backOneStep
 } = workflowSlice.actions;
@@ -144,7 +149,8 @@ const stepIsRelevantBase = ({
     incomeBand,
     priorIncomeBand,
     dobBand,
-    student
+    student,
+    fosterCare
 }: WorkflowState) => (step: number): boolean => {
     if (step === 0) {
         return true
@@ -210,6 +216,10 @@ export const getDOBBand = (state: RootState) => {
 
 export const getStudent = (state: RootState) => {
     return state.workflow.student
+}
+
+export const getFosterCare = (state: RootState) => {
+    return state.workflow.fosterCare
 }
 
 export default workflowSlice.reducer;
