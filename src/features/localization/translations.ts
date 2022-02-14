@@ -61,7 +61,9 @@ export type WorkflowPrompts =
     'Disability Step' |
     'Were you "permanently and totally disabled" in 2021?' |
     'Living Situation Step' |
-    'Did you live at least half the year with another taxpayer?'
+    'Did you live at least half the year with another taxpayer?' |
+    'Family Step' |
+    'Are you their child'
 
 type WorkflowTranslation = Record<WorkflowPrompts, string>
 
@@ -126,6 +128,8 @@ const english: WorkflowTranslation = {
     ['Were you "permanently and totally disabled" in 2021?']: 'Were you "permanently and totally disabled" in 2021?',
     ['Living Situation Step']: 'Living Situation',
     ['Did you live at least half the year with another taxpayer?']: 'Did you live at least half the year with another taxpayer?',
+    ['Family Step']: 'Family Connection',
+    ['Are you their child']: 'Are you their child, stepchild, foster child or a descendent of any of them (e.g. grandchild, great-grandchild)?  Or their sibling (brother or sister), half-sibling, step-sibling, or a descendant of any of them (e.g. niece or nephew, great-niece or great-nephew)?'
 
 }
 

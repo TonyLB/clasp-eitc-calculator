@@ -20,6 +20,7 @@ export interface WorkflowState {
     resident?: boolean;
     disability?: boolean;
     livingWithSomeone?: boolean;
+    familyConnection?: boolean;
 }
 
 const initialState: WorkflowState = {
@@ -74,6 +75,9 @@ export const workflowSlice = createSlice({
         setLivingWithSomeone: (state, action: PayloadAction<boolean>) => {
             state.livingWithSomeone = action.payload
         },
+        setFamilyConnection: (state, action: PayloadAction<boolean>) => {
+            state.familyConnection = action.payload
+        },
         nextRelevantStep: (state) => {
             const nextStep = findNextRelevantStep(state, state.activeStep)
             state.activeStep = nextStep
@@ -99,6 +103,7 @@ export const {
     setResident,
     setDisability,
     setLivingWithSomeone,
+    setFamilyConnection,
     nextRelevantStep,
     backOneStep
 } = workflowSlice.actions;
@@ -120,7 +125,8 @@ export const getNextStepNeeded = (state: RootState): number => {
         homeless,
         resident,
         disability,
-        livingWithSomeone
+        livingWithSomeone,
+        familyConnection
     } = state.workflow
     if (dependentChildren === undefined) {
         return 0
@@ -164,6 +170,9 @@ export const getNextStepNeeded = (state: RootState): number => {
         ) {
         return 11
     }
+    if (livingWithSomeone && familyConnection === undefined) {
+        return 12
+    }
     return 14
 }
 
@@ -199,6 +208,8 @@ const stepIsRelevantBase = ({
     homeless,
     resident,
     disability,
+    livingWithSomeone,
+    familyConnection
 }: WorkflowState) => (step: number): boolean => {
     if (step === 0) {
         return true
@@ -240,6 +251,8 @@ const stepIsRelevantBase = ({
             return (disability ||
                 (['2004+', '2003'].includes(dobBand || '') ||
                 (dobBand === '1998' && student))) ?? false
+        case 12:
+            return livingWithSomeone === true
         default:
             break
     }
@@ -296,6 +309,10 @@ export const getDisability = (state: RootState) => {
 
 export const getLivingWithSomeone = (state: RootState) => {
     return state.workflow.livingWithSomeone
+}
+
+export const getFamilyConnection = (state: RootState) => {
+    return state.workflow.familyConnection
 }
 
 export default workflowSlice.reducer;
