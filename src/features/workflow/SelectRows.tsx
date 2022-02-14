@@ -1,5 +1,5 @@
 import React, { FunctionComponent } from 'react'
-import { useSelector } from 'react-redux'
+import { useSelector, useDispatch } from 'react-redux'
 import {
     Box
 } from '@mui/material'
@@ -7,6 +7,7 @@ import CheckCircleIcon from '@mui/icons-material/CheckCircle'
 
 import { localize } from '../localization/localizationSlice'
 import { WorkflowPrompts } from '../localization/translations'
+import { nextRelevantStep } from '../workflow/workflowSlice'
 
 interface SelectRowMetaData<L extends string> {
     value: L;
@@ -21,6 +22,7 @@ interface SelectRowsProps<L extends string> {
 
 export const SelectRows = <L extends string>({ value: currentValue, rows }: SelectRowsProps<L>) => {
     const localizer = useSelector(localize)
+    const dispatch = useDispatch()
     return <React.Fragment>
         {
             rows.map(({ value, label, onSelect }) => {
@@ -41,7 +43,10 @@ export const SelectRows = <L extends string>({ value: currentValue, rows }: Sele
                             alignItems: "flex-start",
                             backgroundColor: "white"
                         }}
-                        onClick={() => { onSelect(value) }}
+                        onClick={() => {
+                            onSelect(value)
+                            dispatch(nextRelevantStep())
+                        }}
                     >
                         <Box sx={{
                             width: '20px'
