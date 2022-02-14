@@ -16,7 +16,9 @@ import {
     getIncomeBand,
     setIncomeBand,
     getPriorIncomeBand,
-    setPriorIncomeBand
+    setPriorIncomeBand,
+    getDOBBand,
+    setDOBBand
 } from './workflowSlice'
 import { SelectRows } from './SelectRows'
 import WorkflowStep from './WorkflowStep'
@@ -171,6 +173,48 @@ const IncomeStep = ({ priorYear }: { priorYear?: boolean }) => {
         </WorkflowStep>
 }
 
+const DOBStep = () => {
+    const dispatch = useDispatch()
+    const localizer = useSelector(localize)
+    const dobBand = useSelector(getDOBBand)
+    return <WorkflowStep title={'DOB Step'}>
+                <Box sx={{ width: "80%" }}>
+                    { localizer('When were you born?') }
+                </Box>
+                <br />
+                <SelectRows
+                    value={dobBand || ''}
+                    rows={[{
+                        value: '2004+',
+                        label: 'January 2, 2004 or later',
+                        onSelect: () => {
+                            dispatch(setDOBBand('2004+'))
+                        }
+                    },
+                    {
+                        value: '2003',
+                        label: 'After Jan 2 2003 and before Jan 2, 2004',
+                        onSelect: () => {
+                            dispatch(setDOBBand('2003'))
+                        }
+                    },
+                    {
+                        value: '1998',
+                        label: 'After Jan 1, 1998 and before Jan 1, 2003',
+                        onSelect: () => {
+                            dispatch(setDOBBand('1998'))
+                        }
+                    },
+                    {
+                        value: '<1998',
+                        label: 'Jan 1, 1998 or earlier',
+                        onSelect: () => {
+                            dispatch(setDOBBand('<1998'))
+                        }
+                    }]}
+                />
+        </WorkflowStep>
+}
 
 interface StepDispatchProps {
     activeStep: number;
@@ -188,6 +232,8 @@ const StepDispatch: FunctionComponent<StepDispatchProps> = ({ activeStep }) => {
             return <IncomeStep />
         case 4:
             return <IncomeStep priorYear />
+        case 5:
+            return <DOBStep />
         case 15:
             return <ResultStep />
         default:

@@ -3,6 +3,8 @@ import { RootState } from '../../app/store'
 
 type IncomeBand = 'None' | 'Poverty' | 'Above'
 
+type DOBBand = '2004+' | '2003' | '1998' | '<1998'
+
 export interface WorkflowState {
     choseToProceed: boolean;
     activeStep: number;
@@ -11,6 +13,7 @@ export interface WorkflowState {
     hasSSN?: boolean;
     incomeBand?: IncomeBand;
     priorIncomeBand?: IncomeBand;
+    dobBand?: DOBBand;
 }
 
 const initialState: WorkflowState = {
@@ -42,6 +45,9 @@ export const workflowSlice = createSlice({
         setPriorIncomeBand: (state, action: PayloadAction<IncomeBand>) => {
             state.priorIncomeBand = action.payload
         },
+        setDOBBand: (state, action: PayloadAction<DOBBand>) => {
+            state.dobBand = action.payload
+        },
         nextRelevantStep: (state) => {
             const nextStep = findNextRelevantStep(state, state.activeStep)
             state.activeStep = nextStep
@@ -60,6 +66,7 @@ export const {
     setHasSSN,
     setIncomeBand,
     setPriorIncomeBand,
+    setDOBBand,
     nextRelevantStep,
     backOneStep
 } = workflowSlice.actions;
@@ -74,7 +81,8 @@ export const getNextStepNeeded = (state: RootState): number => {
         marriedFilingJoint,
         hasSSN,
         incomeBand,
-        priorIncomeBand
+        priorIncomeBand,
+        dobBand
     } = state.workflow
     if (dependentChildren) {
         return 15
@@ -94,7 +102,10 @@ export const getNextStepNeeded = (state: RootState): number => {
     if (incomeBand === 'None' && priorIncomeBand === undefined) {
         return 4
     }
-    return 5
+    if (dobBand === undefined) {
+        return 5
+    }
+    return 6
 }
 
 const findNextRelevantStep = (state: WorkflowState, step: number): number => {
@@ -122,7 +133,8 @@ const stepIsRelevantBase = ({
     marriedFilingJoint,
     hasSSN,
     incomeBand,
-    priorIncomeBand
+    priorIncomeBand,
+    dobBand
 }: WorkflowState) => (step: number): boolean => {
     if (step === 0) {
         return true
@@ -141,6 +153,19 @@ const stepIsRelevantBase = ({
     }
     if (priorIncomeBand === 'Above' || (incomeBand === 'None' && priorIncomeBand === 'None')) {
         return (step >= 15) || (step <= 4)
+    }
+    if (dobBand === '2004+') {
+        return (step >= 15) || (step <= 5)
+    }
+    switch(step) {
+        case 4:
+            return incomeBand !== 'Poverty'
+        case 6:
+            return dobBand === '2003'
+        case 7:
+            return dobBand === '1998'
+        default:
+            break
     }
     return true
 }
@@ -167,6 +192,10 @@ export const getIncomeBand = (state: RootState) => {
 
 export const getPriorIncomeBand = (state: RootState) => {
     return state.workflow.priorIncomeBand
+}
+
+export const getDOBBand = (state: RootState) => {
+    return state.workflow.dobBand
 }
 
 export default workflowSlice.reducer;

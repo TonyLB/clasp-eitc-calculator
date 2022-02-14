@@ -8,7 +8,8 @@ import {
     getDependentChildren,
     getHasSSN,
     getIncomeBand,
-    getPriorIncomeBand
+    getPriorIncomeBand,
+    getDOBBand
 } from './workflowSlice'
 import WorkflowStep from './WorkflowStep'
 import InDevelopment from './InDevelopment'
@@ -19,6 +20,7 @@ export const ResultStep = () => {
     const hasSSN = useSelector(getHasSSN)
     const incomeBand = useSelector(getIncomeBand)
     const priorIncomeBand = useSelector(getPriorIncomeBand)
+    const dobBand = useSelector(getDOBBand)
     if (dependentChildren) {
         return <WorkflowStep title='Results'>
             <Box sx={{ width: "80%", paddingBottom: "10px" }}>
@@ -83,6 +85,13 @@ export const ResultStep = () => {
                 <a href="https://www.getyourrefund.org/en">{ localizer('GetYourRefund') }</a>
                 &nbsp;
                 { localizer('for information on how to file')}
+            </Box>
+        </WorkflowStep>
+    }
+    if (dobBand === '2004+') {
+        return <WorkflowStep title='Results'>
+            <Box sx={{ width: "80%", paddingBottom: "10px" }}>
+                { localizer('You are not eligible for the EITC for workers without qualifying children because of your age') }
             </Box>
         </WorkflowStep>
 
