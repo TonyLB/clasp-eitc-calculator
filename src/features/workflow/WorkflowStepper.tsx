@@ -266,10 +266,10 @@ const StepDispatch: FunctionComponent<StepDispatchProps> = ({ activeStep }) => {
             />
         case 7:
             return <SimpleYesNoStep
-                getValue={getStudent}
-                setValue={setStudent}
-                title='Student Step'
-                question='Were you a full time student for at least 5 months of 2021?'
+                getValue={getFosterCare}
+                setValue={setFosterCare}
+                title='Foster Care Step'
+                question='Were you in formal foster care at any time between the ages of 14-17 years old?'
             />
         case 15:
             return <ResultStep />

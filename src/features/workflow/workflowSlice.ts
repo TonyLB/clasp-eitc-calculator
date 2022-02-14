@@ -93,7 +93,8 @@ export const getNextStepNeeded = (state: RootState): number => {
         incomeBand,
         priorIncomeBand,
         dobBand,
-        student
+        student,
+        fosterCare
     } = state.workflow
     if (dependentChildren) {
         return 15
@@ -119,7 +120,10 @@ export const getNextStepNeeded = (state: RootState): number => {
     if (student === undefined) {
         return 6
     }
-    return 7
+    if (student === true && fosterCare === undefined) {
+        return 7
+    }
+    return 8
 }
 
 const findNextRelevantStep = (state: WorkflowState, step: number): number => {
@@ -180,6 +184,8 @@ const stepIsRelevantBase = ({
             return dobBand === '2003'
         case 7:
             return (dobBand === '1998') || (student ?? false)
+        case 8:
+            return fosterCare === false
         default:
             break
     }
