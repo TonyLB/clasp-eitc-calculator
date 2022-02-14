@@ -5,6 +5,7 @@ export interface WorkflowState {
     choseToProceed: boolean;
     activeStep: number;
     dependentChildren?: boolean;
+    marriedFilingJoint?: boolean;
 }
 
 const initialState: WorkflowState = {
@@ -22,6 +23,9 @@ export const workflowSlice = createSlice({
         setDependentChildren: (state, action: PayloadAction<boolean>) => {
             state.dependentChildren = action.payload
         },
+        setFilingJoint: (state, action: PayloadAction<boolean>) => {
+            state.marriedFilingJoint = action.payload
+        },
         nextRelevantStep: (state) => {
             const nextStep = findNextRelevantStep(state, state.activeStep)
             state.activeStep = nextStep
@@ -36,6 +40,7 @@ export const workflowSlice = createSlice({
 export const {
     chooseToProceed,
     setDependentChildren,
+    setFilingJoint,
     nextRelevantStep,
     backOneStep
 } = workflowSlice.actions;
@@ -45,14 +50,20 @@ export const choseToProceed = (state: RootState): boolean =>  (state.workflow.ch
 export const getActiveStep = (state: RootState): number => (state.workflow.activeStep)
 
 export const getNextStepNeeded = (state: RootState): number => {
-    const { dependentChildren } = state.workflow
+    const {
+        dependentChildren,
+        marriedFilingJoint
+    } = state.workflow
     if (dependentChildren) {
         return 15
     }
     if (dependentChildren === undefined) {
         return 0
     }
-    return 1
+    if (marriedFilingJoint === undefined) {
+        return 1
+    }
+    return 2
 }
 
 const findNextRelevantStep = (state: WorkflowState, step: number): number => {
@@ -76,7 +87,8 @@ const findPreviousRelevantStep = (state: WorkflowState, step: number): number =>
 }
 
 const stepIsRelevantBase = ({
-    dependentChildren
+    dependentChildren,
+    marriedFilingJoint
 }: WorkflowState) => (step: number): boolean => {
     if (step === 0) {
         return true
@@ -93,6 +105,10 @@ export const stepIsRelevant = (state: RootState) => (step: number): boolean => {
 
 export const getDependentChildren = (state: RootState) => {
     return state.workflow.dependentChildren
+}
+
+export const getFilingJoint = (state: RootState) => {
+    return state.workflow.marriedFilingJoint
 }
 
 export default workflowSlice.reducer;
