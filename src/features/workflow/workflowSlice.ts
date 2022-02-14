@@ -18,6 +18,7 @@ export interface WorkflowState {
     fosterCare?: boolean;
     homeless?: boolean;
     resident?: boolean;
+    disability?: boolean;
 }
 
 const initialState: WorkflowState = {
@@ -64,6 +65,9 @@ export const workflowSlice = createSlice({
         setResident: (state, action: PayloadAction<boolean>) => {
             state.resident = action.payload
         },
+        setDisability: (state, action: PayloadAction<boolean>) => {
+            state.disability = action.payload
+        },
         nextRelevantStep: (state) => {
             const nextStep = findNextRelevantStep(state, state.activeStep)
             state.activeStep = nextStep
@@ -87,6 +91,7 @@ export const {
     setFosterCare,
     setHomeless,
     setResident,
+    setDisability,
     nextRelevantStep,
     backOneStep
 } = workflowSlice.actions;
@@ -106,7 +111,8 @@ export const getNextStepNeeded = (state: RootState): number => {
         student,
         fosterCare,
         homeless,
-        resident
+        resident,
+        disability
     } = state.workflow
     if (dependentChildren === undefined) {
         return 0
@@ -138,7 +144,10 @@ export const getNextStepNeeded = (state: RootState): number => {
     if (resident === undefined) {
         return 9
     }
-    return 10
+    if (disability === undefined) {
+        return 10
+    }
+    return 11
 }
 
 const findNextRelevantStep = (state: WorkflowState, step: number): number => {
@@ -257,6 +266,10 @@ export const getHomeless = (state: RootState) => {
 
 export const getResident = (state: RootState) => {
     return state.workflow.resident
+}
+
+export const getDisability = (state: RootState) => {
+    return state.workflow.disability
 }
 
 export default workflowSlice.reducer;
