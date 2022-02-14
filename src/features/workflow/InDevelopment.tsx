@@ -1,16 +1,11 @@
-import React, { FunctionComponent } from 'react'
-import { useSelector, useDispatch } from 'react-redux'
 import {
     Box
 } from "@mui/material"
 
-import { localize } from '../localization/localizationSlice'
-import { getActiveStep } from './workflowSlice'
-import { SelectRows } from './SelectRows'
 import WorkflowStep from './WorkflowStep'
 
 export const InDevelopment = () => {
-    return <WorkflowStep title='Children Step'>
+    return <WorkflowStep title='In Development'>
                 <Box sx={{ width: "80%" }}>
                     In Development
                 </Box>
