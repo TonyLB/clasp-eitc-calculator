@@ -1,7 +1,7 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit'
 import { RootState } from '../../app/store'
 
-type IncomeBand = 'None' | 'Poverty' | 'Above'
+type IncomeBand = 'None' | 'PossibleDependent' | 'Poverty' | 'Above'
 
 type DOBBand = '2004+' | '2003' | '1998' | '<1998'
 
@@ -22,6 +22,7 @@ export interface WorkflowState {
     livingWithSomeone?: boolean;
     familyConnection?: boolean;
     younger?: boolean;
+    livingExpensesPaid?: boolean;
 }
 
 const initialState: WorkflowState = {
@@ -82,6 +83,9 @@ export const workflowSlice = createSlice({
         setYounger: (state, action: PayloadAction<boolean>) => {
             state.younger = action.payload
         },
+        setLivingExpensesPaid: (state, action: PayloadAction<boolean>) => {
+            state.livingExpensesPaid = action.payload
+        },
         nextRelevantStep: (state) => {
             const nextStep = findNextRelevantStep(state, state.activeStep)
             state.activeStep = nextStep
@@ -109,6 +113,7 @@ export const {
     setLivingWithSomeone,
     setFamilyConnection,
     setYounger,
+    setLivingExpensesPaid,
     nextRelevantStep,
     backOneStep
 } = workflowSlice.actions;
@@ -132,7 +137,8 @@ export const getNextStepNeeded = (state: RootState): number => {
         disability,
         livingWithSomeone,
         familyConnection,
-        younger
+        younger,
+        livingExpensesPaid
     } = state.workflow
     if (dependentChildren === undefined) {
         return 0
@@ -182,7 +188,10 @@ export const getNextStepNeeded = (state: RootState): number => {
     if (familyConnection && younger === undefined) {
         return 13
     }
-    return 14
+    if (livingExpensesPaid === undefined) {
+        return 14
+    }
+    return resultStep
 }
 
 const findNextRelevantStep = (state: WorkflowState, step: number): number => {
@@ -219,7 +228,8 @@ const stepIsRelevantBase = ({
     disability,
     livingWithSomeone,
     familyConnection,
-    younger
+    younger,
+    livingExpensesPaid
 }: WorkflowState) => (step: number): boolean => {
     if (step === 0) {
         return true
@@ -233,7 +243,7 @@ const stepIsRelevantBase = ({
     if (incomeBand === 'Above') {
         return (step >= resultStep) || (step <= 3)
     }
-    if (incomeBand === 'Poverty' && step === 4) {
+    if (['Poverty', 'PossibleDependent'].includes(incomeBand || '') && step === 4) {
         return false
     }
     if (priorIncomeBand === 'Above' || (incomeBand === 'None' && priorIncomeBand === 'None')) {
@@ -254,9 +264,12 @@ const stepIsRelevantBase = ({
     if (younger && step < resultStep && step > 13) {
         return false
     }
+    if (livingExpensesPaid === false && step < resultStep && step > 14) {
+        return false
+    }
     switch(step) {
         case 4:
-            return incomeBand !== 'Poverty'
+            return !['Poverty', 'PossibleDependent'].includes(incomeBand || '')
         case 6:
             return dobBand === '1998'
         case 7:
@@ -335,6 +348,10 @@ export const getFamilyConnection = (state: RootState) => {
 
 export const getYounger = (state: RootState) => {
     return state.workflow.younger
+}
+
+export const getLivingExpensesPaid = (state: RootState) => {
+    return state.workflow.livingExpensesPaid
 }
 
 export default workflowSlice.reducer;

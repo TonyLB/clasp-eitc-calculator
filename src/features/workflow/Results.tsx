@@ -1,3 +1,4 @@
+import React from 'react'
 import { useSelector } from 'react-redux'
 import {
     Box
@@ -17,6 +18,7 @@ import {
     getDisability,
     getFamilyConnection,
     getYounger,
+    getLivingExpensesPaid,
 } from './workflowSlice'
 import WorkflowStep from './WorkflowStep'
 import InDevelopment from './InDevelopment'
@@ -35,6 +37,7 @@ export const ResultStep = () => {
     const disability = useSelector(getDisability)
     const familyConnection = useSelector(getFamilyConnection)
     const younger = useSelector(getYounger)
+    const livingExpensesPaid = useSelector(getLivingExpensesPaid)
     if (dependentChildren) {
         return <WorkflowStep title='Results'>
             <Box sx={{ width: "80%", paddingBottom: "10px" }}>
@@ -137,6 +140,24 @@ export const ResultStep = () => {
                 { localizer('You do not qualify for the Earned Income Tax Credit because you are the qualifying child') }
             </Box>
         </WorkflowStep>
+    }
+    if (livingExpensesPaid === false) {
+        return <WorkflowStep title='Results'>
+            <Box sx={{ width: "80%", paddingBottom: "10px" }}>
+                { localizer('You likely qualify for a credit') }
+            </Box>
+            {
+                ((student || fosterCare)
+                    && <React.Fragment>
+                        <br />
+                        <Box sx={{ width: "80%", paddingBottom: "10px" }}>
+                            { localizer('If you’re using the 1040 form') }
+                        </Box>
+                    </React.Fragment>)
+                || ''
+            }
+        </WorkflowStep>
+
     }
     return <InDevelopment />
 }
