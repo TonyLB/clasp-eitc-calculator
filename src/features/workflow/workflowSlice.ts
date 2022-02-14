@@ -10,6 +10,7 @@ export interface WorkflowState {
     marriedFilingJoint?: boolean;
     hasSSN?: boolean;
     incomeBand?: IncomeBand;
+    priorIncomeBand?: IncomeBand;
 }
 
 const initialState: WorkflowState = {
@@ -38,6 +39,9 @@ export const workflowSlice = createSlice({
         setIncomeBand: (state, action: PayloadAction<IncomeBand>) => {
             state.incomeBand = action.payload
         },
+        setPriorIncomeBand: (state, action: PayloadAction<IncomeBand>) => {
+            state.priorIncomeBand = action.payload
+        },
         nextRelevantStep: (state) => {
             const nextStep = findNextRelevantStep(state, state.activeStep)
             state.activeStep = nextStep
@@ -55,6 +59,7 @@ export const {
     setFilingJoint,
     setHasSSN,
     setIncomeBand,
+    setPriorIncomeBand,
     nextRelevantStep,
     backOneStep
 } = workflowSlice.actions;
@@ -68,7 +73,8 @@ export const getNextStepNeeded = (state: RootState): number => {
         dependentChildren,
         marriedFilingJoint,
         hasSSN,
-        incomeBand
+        incomeBand,
+        priorIncomeBand
     } = state.workflow
     if (dependentChildren) {
         return 15
@@ -85,7 +91,10 @@ export const getNextStepNeeded = (state: RootState): number => {
     if (incomeBand === undefined) {
         return 3
     }
-    return 4
+    if (incomeBand === 'None' && priorIncomeBand === undefined) {
+        return 4
+    }
+    return 5
 }
 
 const findNextRelevantStep = (state: WorkflowState, step: number): number => {
@@ -112,7 +121,8 @@ const stepIsRelevantBase = ({
     dependentChildren,
     marriedFilingJoint,
     hasSSN,
-    incomeBand
+    incomeBand,
+    priorIncomeBand
 }: WorkflowState) => (step: number): boolean => {
     if (step === 0) {
         return true
@@ -128,6 +138,9 @@ const stepIsRelevantBase = ({
     }
     if (incomeBand === 'Poverty' && step === 4) {
         return false
+    }
+    if (priorIncomeBand === 'Above' || (incomeBand === 'None' && priorIncomeBand === 'None')) {
+        return (step >= 15) || (step <= 4)
     }
     return true
 }
@@ -150,6 +163,10 @@ export const getHasSSN = (state: RootState) => {
 
 export const getIncomeBand = (state: RootState) => {
     return state.workflow.incomeBand
+}
+
+export const getPriorIncomeBand = (state: RootState) => {
+    return state.workflow.priorIncomeBand
 }
 
 export default workflowSlice.reducer;

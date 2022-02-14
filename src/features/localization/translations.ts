@@ -33,7 +33,13 @@ export type WorkflowPrompts =
     'More than $27,380' |
     'At least $1 up to $21,430' |
     'More than $21,430' |
-    'You are not eligible for the EITC.  However, you are legally required to file a federal tax return'
+    'You are not eligible for the EITC.  However, you are legally required to file a federal tax return' |
+    'Prior Earned Income Step' |
+    'What was your and your spouse\'s combined earned income in 2019?' |
+    'What was your earned income in 2019?' |
+    'If you earned more in 2019 than in 2021' |
+    'You are not eligible for the EITC because you did not have earned income in either 2021 or 2019' |
+    'You are not eligible for the EITC based on your 2019 income'
 
 type WorkflowTranslation = Record<WorkflowPrompts, string>
 
@@ -69,7 +75,14 @@ const english: WorkflowTranslation = {
     ['More than $27,380']: 'More than $27,380',
     ['At least $1 up to $21,430']: 'At least $1 up to $21,430',
     ['More than $21,430']: 'More than $21,430',
-    ['You are not eligible for the EITC.  However, you are legally required to file a federal tax return']: 'You are not eligible for the EITC.  However, you are legally required to file a federal tax return.'
+    ['You are not eligible for the EITC.  However, you are legally required to file a federal tax return']: 'You are not eligible for the EITC.  However, you are legally required to file a federal tax return.',
+    ['Prior Earned Income Step']: 'Prior Year Earned Income',
+    ['What was your and your spouse\'s combined earned income in 2019?']: 'What was your and your spouse\'s combined earned income in 2019?',
+    ['What was your earned income in 2019?']: 'What was your earned income in 2019?',
+    ['If you earned more in 2019 than in 2021']: 'If you earned more in 2019 than in 2021',
+    ['You are not eligible for the EITC because you did not have earned income in either 2021 or 2019']: 'You are not eligible for the EITC because you did not have earned income in either 2021 or 2019.   You may still want to file a 2021 return if you were eligible for the third stimulus payment and did not receive it.',
+    ['You are not eligible for the EITC based on your 2019 income']: 'You are not eligible for the EITC based on your 2019 income.   You may still want to file a 2021 return if you were eligible for the third stimulus payment and did not receive it.',
+
 
 }
 

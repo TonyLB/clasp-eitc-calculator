@@ -14,7 +14,9 @@ import {
     getHasSSN,
     setHasSSN,
     getIncomeBand,
-    setIncomeBand
+    setIncomeBand,
+    getPriorIncomeBand,
+    setPriorIncomeBand
 } from './workflowSlice'
 import { SelectRows } from './SelectRows'
 import WorkflowStep from './WorkflowStep'
@@ -121,17 +123,24 @@ const SSNStep = () => {
         </WorkflowStep>
 }
 
-const IncomeStep = () => {
+const IncomeStep = ({ priorYear }: { priorYear?: boolean }) => {
     const dispatch = useDispatch()
     const localizer = useSelector(localize)
     const filingJoint = useSelector(getFilingJoint)
     const incomeBand = useSelector(getIncomeBand)
-    const currentValue = incomeBand ? incomeBand : ''
-    return <WorkflowStep title='Earned Income Step'>
+    const priorIncomeBand = useSelector(getPriorIncomeBand)
+    const selectedIncomeBand = priorYear ? priorIncomeBand : incomeBand
+    const currentValue = selectedIncomeBand ? selectedIncomeBand : ''
+    const setSelectedIncomeBand = priorYear ? setPriorIncomeBand : setIncomeBand
+    return <WorkflowStep title={'Earned Income Step'}>
                 <Box sx={{ width: "80%" }}>
-                    { filingJoint
-                        ? localizer('Do both you and your spouse have a social security number that authorizes you to work?')
-                        : localizer('Do you have a social security number that authorizes you to work?')
+                    { priorYear
+                        ? (filingJoint
+                            ? localizer('What was your and your spouse\'s combined earned income in 2019?')
+                            : localizer('What was your earned income in 2019?'))
+                        : (filingJoint
+                            ? localizer('What was your and your spouse\'s combined earned income in 2021?')
+                            : localizer('What was your earned income in 2021?'))
                     }
                 </Box>
                 <br />
@@ -141,21 +150,21 @@ const IncomeStep = () => {
                         value: 'None',
                         label: 'None',
                         onSelect: () => {
-                            dispatch(setIncomeBand('None'))
+                            dispatch(setSelectedIncomeBand('None'))
                         }
                     },
                     {
                         value: 'Poverty',
                         label: filingJoint ? 'At least $1 up to $27,380' : 'At least $1 up to $21,430',
                         onSelect: () => {
-                            dispatch(setIncomeBand('Poverty'))
+                            dispatch(setSelectedIncomeBand('Poverty'))
                         }
                     },
                     {
                         value: 'Above',
                         label: filingJoint ? 'More than $27,380' : 'More than $21,430',
                         onSelect: () => {
-                            dispatch(setIncomeBand('Above'))
+                            dispatch(setSelectedIncomeBand('Above'))
                         }
                     }]}
                 />
@@ -177,6 +186,8 @@ const StepDispatch: FunctionComponent<StepDispatchProps> = ({ activeStep }) => {
             return <SSNStep />
         case 3:
             return <IncomeStep />
+        case 4:
+            return <IncomeStep priorYear />
         case 15:
             return <ResultStep />
         default:
