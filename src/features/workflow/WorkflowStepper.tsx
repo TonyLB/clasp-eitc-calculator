@@ -12,7 +12,9 @@ import {
     getFilingJoint,
     setFilingJoint,
     getHasSSN,
-    setHasSSN
+    setHasSSN,
+    getIncomeBand,
+    setIncomeBand
 } from './workflowSlice'
 import { SelectRows } from './SelectRows'
 import WorkflowStep from './WorkflowStep'
@@ -119,6 +121,48 @@ const SSNStep = () => {
         </WorkflowStep>
 }
 
+const IncomeStep = () => {
+    const dispatch = useDispatch()
+    const localizer = useSelector(localize)
+    const filingJoint = useSelector(getFilingJoint)
+    const incomeBand = useSelector(getIncomeBand)
+    const currentValue = incomeBand ? incomeBand : ''
+    return <WorkflowStep title='Earned Income Step'>
+                <Box sx={{ width: "80%" }}>
+                    { filingJoint
+                        ? localizer('Do both you and your spouse have a social security number that authorizes you to work?')
+                        : localizer('Do you have a social security number that authorizes you to work?')
+                    }
+                </Box>
+                <br />
+                <SelectRows
+                    value={currentValue}
+                    rows={[{
+                        value: 'None',
+                        label: 'None',
+                        onSelect: () => {
+                            dispatch(setIncomeBand('None'))
+                        }
+                    },
+                    {
+                        value: 'Poverty',
+                        label: filingJoint ? 'At least $1 up to $27,380' : 'At least $1 up to $21,430',
+                        onSelect: () => {
+                            dispatch(setIncomeBand('Poverty'))
+                        }
+                    },
+                    {
+                        value: 'Above',
+                        label: filingJoint ? 'More than $27,380' : 'More than $21,430',
+                        onSelect: () => {
+                            dispatch(setIncomeBand('Above'))
+                        }
+                    }]}
+                />
+        </WorkflowStep>
+}
+
+
 interface StepDispatchProps {
     activeStep: number;
 }
@@ -131,6 +175,8 @@ const StepDispatch: FunctionComponent<StepDispatchProps> = ({ activeStep }) => {
             return <FilingJointStep />
         case 2:
             return <SSNStep />
+        case 3:
+            return <IncomeStep />
         case 15:
             return <ResultStep />
         default:

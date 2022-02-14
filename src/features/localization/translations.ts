@@ -23,7 +23,17 @@ export type WorkflowPrompts =
     'SSN Step' |
     'Do you have a social security number that authorizes you to work?' |
     'Do both you and your spouse have a social security number that authorizes you to work?' |
-    'If you do not have a SSN'
+    'If you do not have a SSN' |
+    'Earned Income Step' |
+    'What was your and your spouse\'s combined earned income in 2021?' |
+    'What was your earned income in 2021?' |
+    'Earned income includes' |
+    'None' |
+    'At least $1 up to $27,380' |
+    'More than $27,380' |
+    'At least $1 up to $21,430' |
+    'More than $21,430' |
+    'You are not eligible for the EITC.  However, you are legally required to file a federal tax return'
 
 type WorkflowTranslation = Record<WorkflowPrompts, string>
 
@@ -49,7 +59,17 @@ const english: WorkflowTranslation = {
     ['SSN Step']: 'Social Security Number',
     ['Do you have a social security number that authorizes you to work?']: 'Do you have a social security number that authorizes you to work?',
     ['Do both you and your spouse have a social security number that authorizes you to work?']: 'Do both you and your spouse have a social security number that authorizes you to work?',
-    ['If you do not have a SSN']: 'If you do not have a SSN, you cannot claim the federal EITC, although some states  (Maryland, New Mexico, Oregon, Washington, Colorado, and California) allow taxpayers with ITINs to claim their state EITCs.'
+    ['If you do not have a SSN']: 'If you do not have a SSN, you cannot claim the federal EITC, although some states  (Maryland, New Mexico, Oregon, Washington, Colorado, and California) allow taxpayers with ITINs to claim their state EITCs.',
+    ['Earned Income Step']: 'Earned Income',
+    ['What was your and your spouse\'s combined earned income in 2021?']: 'What was your and your spouse\'s combined earned income in 2021?',
+    ['What was your earned income in 2021?']: 'What was your earned income in 2021?',
+    ['Earned income includes']: 'Earned income includes income earned as wages, as a contractor, or on a cash basis.  It does not include unemployment insurance or stimulus payments. It does not include scholarship or fellowship grants unless they were reported on a W-2 form.',
+    ['None']: 'None',
+    ['At least $1 up to $27,380']: 'At least $1 up to $27,380',
+    ['More than $27,380']: 'More than $27,380',
+    ['At least $1 up to $21,430']: 'At least $1 up to $21,430',
+    ['More than $21,430']: 'More than $21,430',
+    ['You are not eligible for the EITC.  However, you are legally required to file a federal tax return']: 'You are not eligible for the EITC.  However, you are legally required to file a federal tax return.'
 
 }
 
