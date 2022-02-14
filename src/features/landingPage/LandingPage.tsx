@@ -1,13 +1,15 @@
 import React, { FunctionComponent } from 'react'
-import { useSelector } from 'react-redux'
+import { useSelector, useDispatch } from 'react-redux'
 import { Box, Typography, Button, useMediaQuery } from '@mui/material'
 import { localize } from '../localization/localizationSlice'
+import { chooseToProceed } from '../workflow/workflowSlice'
 
 interface LandingPageProps {
 
 }
 
 export const LandingPage: FunctionComponent<LandingPageProps> = () => {
+    const dispatch = useDispatch()
     const localizer = useSelector(localize)
     const smallScreen = useMediaQuery('(max-width: 600px)')
     return <Box sx={{
@@ -33,7 +35,12 @@ export const LandingPage: FunctionComponent<LandingPageProps> = () => {
         </Box>
         <br />
         <Box>
-            <Button variant="contained" >{ localizer('Proceed') }</Button>
+            <Button
+                variant="contained"
+                onClick={() => { dispatch(chooseToProceed()) }}
+            >
+                { localizer('Proceed') }
+            </Button>
         </Box>
     </Box>
 }
