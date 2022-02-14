@@ -50,7 +50,11 @@ export type WorkflowPrompts =
     'Student Step' |
     'Were you a full time student for at least 5 months of 2021?' |
     'Foster Care Step' |
-    'Were you in formal foster care at any time between the ages of 14-17 years old?'
+    'Were you in formal foster care at any time between the ages of 14-17 years old?' |
+    'Homeless Step' |
+    'In 2021, were you an unaccompanied homeless youth' |
+    'I\'m not sure, tell me more' |
+    'You are not eligible for the EITC for workers without qualifying children, because of your age and student status'
 
 type WorkflowTranslation = Record<WorkflowPrompts, string>
 
@@ -104,6 +108,10 @@ const english: WorkflowTranslation = {
     ['Were you a full time student for at least 5 months of 2021?']: 'Were you a full time student for at least 5 months of 2021?',
     ['Foster Care Step']: 'Foster Care Status',
     ['Were you in formal foster care at any time between the ages of 14-17 years old?']: 'Were you in formal foster care at any time between the ages of 14-17 years old?',
+    ['Homeless Step']: 'Homeless/Unaccompanied Status',
+    ['In 2021, were you an unaccompanied homeless youth']: ' In 2021, were you an unaccompanied homeless youth, or a youth who was self-supporting and at risk of homelessness (experiencing homelessness without a parent or guardian. This includes staying temporarily with other people, in a shelter, outside, or in places not meant for human habitation).',
+    ['I\'m not sure, tell me more']: 'I\'m not sure, tell me more',
+    ['You are not eligible for the EITC for workers without qualifying children, because of your age and student status']: 'You are not eligible for the EITC for workers without qualifying children, because of your age and student status.  You may still want to file a return if you had any taxes withheld from a paycheck in 2021 or to claim the third stimulus payment if you did not receive it already.'
 }
 
 export const translations: Record<SupportedLanguages, WorkflowTranslation> = {
