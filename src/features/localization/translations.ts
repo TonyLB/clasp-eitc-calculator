@@ -63,7 +63,10 @@ export type WorkflowPrompts =
     'Living Situation Step' |
     'Did you live at least half the year with another taxpayer?' |
     'Family Step' |
-    'Are you their child'
+    'Are you their child' |
+    'Relative Age Step' |
+    'Are you younger than them (or their spouse, if they file jointly)?' |
+    'You do not qualify for the Earned Income Tax Credit because you are the qualifying child'
 
 type WorkflowTranslation = Record<WorkflowPrompts, string>
 
@@ -129,7 +132,10 @@ const english: WorkflowTranslation = {
     ['Living Situation Step']: 'Living Situation',
     ['Did you live at least half the year with another taxpayer?']: 'Did you live at least half the year with another taxpayer?',
     ['Family Step']: 'Family Connection',
-    ['Are you their child']: 'Are you their child, stepchild, foster child or a descendent of any of them (e.g. grandchild, great-grandchild)?  Or their sibling (brother or sister), half-sibling, step-sibling, or a descendant of any of them (e.g. niece or nephew, great-niece or great-nephew)?'
+    ['Are you their child']: 'Are you their child, stepchild, foster child or a descendent of any of them (e.g. grandchild, great-grandchild)?  Or their sibling (brother or sister), half-sibling, step-sibling, or a descendant of any of them (e.g. niece or nephew, great-niece or great-nephew)?',
+    ['Relative Age Step']: 'Relative Age',
+    ['Are you younger than them (or their spouse, if they file jointly)?']: 'Are you younger than them (or their spouse, if they file jointly)?',
+    ['You do not qualify for the Earned Income Tax Credit because you are the qualifying child']: 'You do not qualify for the Earned Income Tax Credit because you are the qualifying child of another taxpayer.'
 
 }
 

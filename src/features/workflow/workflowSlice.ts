@@ -21,6 +21,7 @@ export interface WorkflowState {
     disability?: boolean;
     livingWithSomeone?: boolean;
     familyConnection?: boolean;
+    younger?: boolean;
 }
 
 const initialState: WorkflowState = {
@@ -78,6 +79,9 @@ export const workflowSlice = createSlice({
         setFamilyConnection: (state, action: PayloadAction<boolean>) => {
             state.familyConnection = action.payload
         },
+        setYounger: (state, action: PayloadAction<boolean>) => {
+            state.younger = action.payload
+        },
         nextRelevantStep: (state) => {
             const nextStep = findNextRelevantStep(state, state.activeStep)
             state.activeStep = nextStep
@@ -104,6 +108,7 @@ export const {
     setDisability,
     setLivingWithSomeone,
     setFamilyConnection,
+    setYounger,
     nextRelevantStep,
     backOneStep
 } = workflowSlice.actions;
@@ -126,7 +131,8 @@ export const getNextStepNeeded = (state: RootState): number => {
         resident,
         disability,
         livingWithSomeone,
-        familyConnection
+        familyConnection,
+        younger
     } = state.workflow
     if (dependentChildren === undefined) {
         return 0
@@ -173,6 +179,9 @@ export const getNextStepNeeded = (state: RootState): number => {
     if (livingWithSomeone && familyConnection === undefined) {
         return 12
     }
+    if (familyConnection && younger === undefined) {
+        return 13
+    }
     return 14
 }
 
@@ -209,7 +218,8 @@ const stepIsRelevantBase = ({
     resident,
     disability,
     livingWithSomeone,
-    familyConnection
+    familyConnection,
+    younger
 }: WorkflowState) => (step: number): boolean => {
     if (step === 0) {
         return true
@@ -238,6 +248,12 @@ const stepIsRelevantBase = ({
     if (resident === false && step < resultStep && step > 9) {
         return false
     }
+    if (familyConnection && disability && step < resultStep && step > 12) {
+        return false
+    }
+    if (younger && step < resultStep && step > 13) {
+        return false
+    }
     switch(step) {
         case 4:
             return incomeBand !== 'Poverty'
@@ -253,6 +269,8 @@ const stepIsRelevantBase = ({
                 (dobBand === '1998' && student))) ?? false
         case 12:
             return livingWithSomeone === true
+        case 13:
+            return familyConnection === true
         default:
             break
     }
@@ -313,6 +331,10 @@ export const getLivingWithSomeone = (state: RootState) => {
 
 export const getFamilyConnection = (state: RootState) => {
     return state.workflow.familyConnection
+}
+
+export const getYounger = (state: RootState) => {
+    return state.workflow.younger
 }
 
 export default workflowSlice.reducer;
