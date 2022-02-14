@@ -10,7 +10,9 @@ import {
     getDependentChildren,
     setDependentChildren,
     getFilingJoint,
-    setFilingJoint
+    setFilingJoint,
+    getHasSSN,
+    setHasSSN
 } from './workflowSlice'
 import { SelectRows } from './SelectRows'
 import WorkflowStep from './WorkflowStep'
@@ -83,6 +85,40 @@ const FilingJointStep = () => {
         </WorkflowStep>
 }
 
+const SSNStep = () => {
+    const dispatch = useDispatch()
+    const localizer = useSelector(localize)
+    const filingJoint = useSelector(getFilingJoint)
+    const hasSSN = useSelector(getHasSSN)
+    const currentValue = hasSSN === true ? 'Yes' : hasSSN === false ? 'No' : ''
+    return <WorkflowStep title='SSN Step'>
+                <Box sx={{ width: "80%" }}>
+                    { filingJoint
+                        ? localizer('Do both you and your spouse have a social security number that authorizes you to work?')
+                        : localizer('Do you have a social security number that authorizes you to work?')
+                    }
+                </Box>
+                <br />
+                <SelectRows
+                    value={currentValue}
+                    rows={[{
+                        value: 'Yes',
+                        label: 'Yes',
+                        onSelect: () => {
+                            dispatch(setHasSSN(true))
+                        }
+                    },
+                    {
+                        value: 'No',
+                        label: 'No',
+                        onSelect: () => {
+                            dispatch(setHasSSN(false))
+                        }
+                    }]}
+                />
+        </WorkflowStep>
+}
+
 interface StepDispatchProps {
     activeStep: number;
 }
@@ -93,6 +129,8 @@ const StepDispatch: FunctionComponent<StepDispatchProps> = ({ activeStep }) => {
             return <ChildrenStep />
         case 1:
             return <FilingJointStep />
+        case 2:
+            return <SSNStep />
         case 15:
             return <ResultStep />
         default:
