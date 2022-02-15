@@ -71,7 +71,10 @@ export type WorkflowPrompts =
     'Living Expenses Step' |
     'Did another person provide more than half of your living expenses' |
     'You likely qualify for a credit' |
-    'If you’re using the 1040 form'
+    'If you\'re using the 1040 form' |
+    'Cohabitation Step' |
+    'Did you live with this person all year?' |
+    'You can likely be claimed as the dependent of another taxpayer'
 
 type WorkflowTranslation = Record<WorkflowPrompts, string>
 
@@ -145,7 +148,10 @@ const english: WorkflowTranslation = {
     ['Living Expenses Step']: 'Living Expenses',
     ['Did another person provide more than half of your living expenses']: 'Did another person (or person and their spouse) provide more than half of your living expenses for 2021? (Note: Foster care payments are considered support provided by the agency, not by the foster parent).',
     ['You likely qualify for a credit']: 'You likely qualify for a credit of up to $1502 through the earned income tax credit! To claim the credit, indicate on your taxes that you would like to claim EITC or EIC (depending on the software it can appear either way).',
-    ['If you’re using the 1040 form']: ' If you’re using the 1040 form instead of a software, your EITC is located on line 27a . Indicate that “you were born after 1/1/1998, and before 1/2/2004, and you satisfy all the other requirements for taxpayers who are at least age 18, to claim the EIC.,'
+    ['If you\'re using the 1040 form']: ' If you\'re using the 1040 form instead of a software, your EITC is located on line 27a . Indicate that “you were born after 1/1/1998, and before 1/2/2004, and you satisfy all the other requirements for taxpayers who are at least age 18, to claim the EIC.',
+    ['Cohabitation Step']: 'Cohabitation',
+    ['Did you live with this person all year?']: 'Did you live with this person all year? Other than absences due to illness, education, business, vacation, military service, or detention in a juvenile facility.',
+    ['You can likely be claimed as the dependent of another taxpayer']: 'You do not qualify for the Earned Income Tax Credit because you can likely be claimed as the dependent of another taxpayer.'
 }
 
 export const translations: Record<SupportedLanguages, WorkflowTranslation> = {

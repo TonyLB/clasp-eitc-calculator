@@ -38,7 +38,9 @@ import {
     getYounger,
     setYounger,
     getLivingExpensesPaid,
-    setLivingExpensesPaid
+    setLivingExpensesPaid,
+    getCohabitation,
+    setCohabitation
 } from './workflowSlice'
 import { SelectRows } from './SelectRows'
 import WorkflowStep from './WorkflowStep'
@@ -289,6 +291,39 @@ const HomelessStep = () => {
         </WorkflowStep>
 }
 
+const LivingExpensesStep = () => {
+    const dispatch = useDispatch()
+    const localizer = useSelector(localize)
+    const livingExpensesPaid = useSelector(getLivingExpensesPaid)
+    const currentValue = livingExpensesPaid === true ? 'Yes' : livingExpensesPaid === false ? 'No' : ''
+    return <WorkflowStep title='Living Expenses Step'>
+                <Box sx={{ width: "80%", paddingBottom: "20px" }}>
+                    { localizer('Did another person provide more than half of your living expenses') }
+                </Box>
+                <br />
+                <Button variant="contained" onClick={() => { window.open("https://schoolhouseconnection.org/am-i-experiencing-homelessness", "_blank")}}>
+                    { localizer('I\'m not sure, tell me more') }
+                </Button>
+                <SelectRows
+                    value={currentValue}
+                    rows={[{
+                        value: 'Yes',
+                        label: 'Yes',
+                        onSelect: () => {
+                            dispatch(setLivingExpensesPaid(true))
+                        }
+                    },
+                    {
+                        value: 'No',
+                        label: 'No',
+                        onSelect: () => {
+                            dispatch(setLivingExpensesPaid(false))
+                        }
+                    }]}
+                />
+        </WorkflowStep>
+}
+
 interface StepDispatchProps {
     activeStep: number;
 }
@@ -364,13 +399,15 @@ const StepDispatch: FunctionComponent<StepDispatchProps> = ({ activeStep }) => {
                 question='Are you younger than them (or their spouse, if they file jointly)?'
             />
         case 14:
-            return <SimpleYesNoStep
-                getValue={getLivingExpensesPaid}
-                setValue={setLivingExpensesPaid}
-                title='Living Expenses Step'
-                question='Did another person provide more than half of your living expenses'
-            />
+            return <LivingExpensesStep />
         case 15:
+            return <SimpleYesNoStep
+                getValue={getCohabitation}
+                setValue={setCohabitation}
+                title='Cohabitation Step'
+                question='Did you live with this person all year?'
+            />
+        case 16:
             return <ResultStep />
         default:
             return <InDevelopment />
