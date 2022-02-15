@@ -20,6 +20,7 @@ import {
     getYounger,
     getLivingExpensesPaid,
     getCohabitation,
+    getExtendedFamily
 } from './workflowSlice'
 import WorkflowStep from './WorkflowStep'
 import InDevelopment from './InDevelopment'
@@ -40,6 +41,7 @@ export const ResultStep = () => {
     const younger = useSelector(getYounger)
     const livingExpensesPaid = useSelector(getLivingExpensesPaid)
     const cohabitation = useSelector(getCohabitation)
+    const extendedFamily = useSelector(getExtendedFamily)
     if (dependentChildren) {
         return <WorkflowStep title='Results'>
             <Box sx={{ width: "80%", paddingBottom: "10px" }}>
@@ -150,7 +152,7 @@ export const ResultStep = () => {
             </Box>
         </WorkflowStep>
     }
-    if (livingExpensesPaid === false) {
+    if (livingExpensesPaid === false || (cohabitation === false && extendedFamily === false)) {
         return <WorkflowStep title='Results'>
             <Box sx={{ width: "80%", paddingBottom: "10px" }}>
                 { localizer('You likely qualify for a credit') }

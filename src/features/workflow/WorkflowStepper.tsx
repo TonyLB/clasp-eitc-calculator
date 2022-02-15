@@ -40,7 +40,9 @@ import {
     getLivingExpensesPaid,
     setLivingExpensesPaid,
     getCohabitation,
-    setCohabitation
+    setCohabitation,
+    getExtendedFamily,
+    setExtendedFamily
 } from './workflowSlice'
 import { SelectRows } from './SelectRows'
 import WorkflowStep from './WorkflowStep'
@@ -324,6 +326,47 @@ const LivingExpensesStep = () => {
         </WorkflowStep>
 }
 
+const ExtendedFamilyStep = () => {
+    const dispatch = useDispatch()
+    const localizer = useSelector(localize)
+    const extendedFamily = useSelector(getExtendedFamily)
+    const currentValue = extendedFamily === true ? 'Yes' : extendedFamily === false ? 'No' : ''
+    return <WorkflowStep title='Extended Family Step'>
+                <Box sx={{ width: "80%", paddingBottom: "20px" }}>
+                    { localizer('Were you related to them as their child') }
+                </Box>
+                <br />
+                <Box sx={{ width: "80%", paddingBottom: "20px" }}>
+                    <ul>
+                        <li>{ localizer('Their brother') }</li>
+                        <li>{ localizer('Their father') }</li>
+                        <li>{ localizer('Their stepfather') }</li>
+                        <li>{ localizer('A son or daughter of their brother or sister') }</li>
+                        <li>{ localizer('A son or daughter of their half brother or half sister') }</li>
+                        <li>{ localizer('A brother or sister of their father or mother') }</li>
+                        <li>{ localizer('Their son-in-law') }</li>
+                    </ul>
+                </Box>
+                <SelectRows
+                    value={currentValue}
+                    rows={[{
+                        value: 'Yes',
+                        label: 'Yes',
+                        onSelect: () => {
+                            dispatch(setExtendedFamily(true))
+                        }
+                    },
+                    {
+                        value: 'No',
+                        label: 'No',
+                        onSelect: () => {
+                            dispatch(setExtendedFamily(false))
+                        }
+                    }]}
+                />
+        </WorkflowStep>
+}
+
 interface StepDispatchProps {
     activeStep: number;
 }
@@ -408,6 +451,8 @@ const StepDispatch: FunctionComponent<StepDispatchProps> = ({ activeStep }) => {
                 question='Did you live with this person all year?'
             />
         case 16:
+            return <ExtendedFamilyStep />
+        case 17:
             return <ResultStep />
         default:
             return <InDevelopment />

@@ -24,6 +24,7 @@ export interface WorkflowState {
     younger?: boolean;
     livingExpensesPaid?: boolean;
     cohabitation?: boolean;
+    extendedFamily?: boolean;
 }
 
 const initialState: WorkflowState = {
@@ -31,7 +32,7 @@ const initialState: WorkflowState = {
     activeStep: 0
 };
 
-const resultStep = 16
+const resultStep = 17
 
 export const workflowSlice = createSlice({
     name: 'workflow',
@@ -90,6 +91,9 @@ export const workflowSlice = createSlice({
         setCohabitation: (state, action: PayloadAction<boolean>) => {
             state.cohabitation = action.payload
         },
+        setExtendedFamily: (state, action: PayloadAction<boolean>) => {
+            state.extendedFamily = action.payload
+        },
         nextRelevantStep: (state) => {
             const nextStep = findNextRelevantStep(state, state.activeStep)
             state.activeStep = nextStep
@@ -119,6 +123,7 @@ export const {
     setYounger,
     setLivingExpensesPaid,
     setCohabitation,
+    setExtendedFamily,
     nextRelevantStep,
     backOneStep
 } = workflowSlice.actions;
@@ -144,7 +149,8 @@ export const getNextStepNeeded = (state: RootState): number => {
         familyConnection,
         younger,
         livingExpensesPaid,
-        cohabitation
+        cohabitation,
+        extendedFamily
     } = state.workflow
     if (dependentChildren === undefined) {
         return 0
@@ -200,6 +206,9 @@ export const getNextStepNeeded = (state: RootState): number => {
     if (cohabitation === undefined) {
         return 15
     }
+    if (extendedFamily === undefined) {
+        return 16
+    }
     return resultStep
 }
 
@@ -238,7 +247,8 @@ const stepIsRelevantBase = ({
     livingWithSomeone,
     familyConnection,
     younger,
-    livingExpensesPaid
+    livingExpensesPaid,
+    cohabitation,
 }: WorkflowState) => (step: number): boolean => {
     if (step === 0) {
         return true
@@ -295,6 +305,8 @@ const stepIsRelevantBase = ({
             return familyConnection === true
         case 15:
             return livingExpensesPaid || false
+        case 16:
+            return ((livingExpensesPaid || false) && !cohabitation)
         default:
             break
     }
@@ -367,6 +379,10 @@ export const getLivingExpensesPaid = (state: RootState) => {
 
 export const getCohabitation = (state: RootState) => {
     return state.workflow.cohabitation
+}
+
+export const getExtendedFamily = (state: RootState) => {
+    return state.workflow.extendedFamily
 }
 
 export default workflowSlice.reducer;

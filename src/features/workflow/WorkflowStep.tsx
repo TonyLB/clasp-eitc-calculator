@@ -65,7 +65,7 @@ export const WorkflowStep: FunctionComponent<WorkflowStepProps> = ({ title, chil
 
         <MobileStepper
             variant="progress"
-            steps={17}
+            steps={18}
             activeStep={activeStep}
             sx={{ flexGrow: 1 }}
             nextButton={
