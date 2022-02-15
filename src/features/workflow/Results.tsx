@@ -156,6 +156,7 @@ export const ResultStep = () => {
         return <WorkflowStep title='Results'>
             <Box sx={{ width: "80%", paddingBottom: "10px" }}>
                 { localizer('You likely qualify for a credit') }
+                { ((priorIncomeBand === 'Poverty') && <React.Fragment>&nbsp; { localizer('Make sure to enter your 2019 earned income in line 27c') } </React.Fragment>) || '' }
             </Box>
             {
                 ((student || fosterCare)
