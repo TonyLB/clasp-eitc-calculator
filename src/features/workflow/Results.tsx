@@ -109,14 +109,14 @@ export const ResultStep = () => {
             </Box>
         </WorkflowStep>
     }
-    if (dobBand === '2004+' && !(student || fosterCare || homeless)) {
+    if (dobBand === '2004+' && !(fosterCare || homeless)) {
         return <WorkflowStep title='Results'>
             <Box sx={{ width: "80%", paddingBottom: "10px" }}>
                 { localizer('You are not eligible for the EITC for workers without qualifying children because of your age') }
             </Box>
         </WorkflowStep>
     }
-    if (dobBand === '1998' && !(fosterCare || homeless)) {
+    if (dobBand === '1998' && (!(fosterCare || homeless) && student)) {
         return <WorkflowStep title='Results'>
             <Box sx={{ width: "80%", paddingBottom: "10px" }}>
                 { localizer('You are not eligible for the EITC for workers without qualifying children, because of your age and student status') }
@@ -164,6 +164,22 @@ export const ResultStep = () => {
                         <br />
                         <Box sx={{ width: "80%", paddingBottom: "10px" }}>
                             { localizer('If you\'re using the 1040 form') }
+                        </Box>
+                    </React.Fragment>)
+                || ''
+            }
+            {
+                ((dobBand !== '<1998')
+                    && <React.Fragment>
+                        <br />
+                        <Box sx={{ width: "80%", paddingBottom: "10px" }}>
+                            { localizer('For more information about tax credits for youth, check out') }
+                            
+                            &nbsp;
+                            <a href="https://jbay.org/resources/tax-filing-national/">{ localizer('this resource') }</a>
+                            &nbsp;
+
+                            { localizer('from John Burton Advocates for Youth!') }
                         </Box>
                     </React.Fragment>)
                 || ''

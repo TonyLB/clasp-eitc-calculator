@@ -84,7 +84,10 @@ export type WorkflowPrompts =
     'A son or daughter of their half brother or half sister' |
     'A brother or sister of their father or mother' |
     'Their son-in-law' |
-    'Make sure to enter your 2019 earned income in line 27c'
+    'Make sure to enter your 2019 earned income in line 27c' |
+    'For more information about tax credits for youth, check out' |
+    'this resource' |
+    'from John Burton Advocates for Youth!'
 
 type WorkflowTranslation = Record<WorkflowPrompts, string>
 
@@ -171,7 +174,11 @@ const english: WorkflowTranslation = {
     ['A son or daughter of their half brother or half sister']: 'A son or daughter of their half brother or half sister.',
     ['A brother or sister of their father or mother']: 'A brother or sister of their father or mother.',
     ['Their son-in-law']: 'Their son-in-law, daughter-in-law, father-in-law, mother-in-law, brother-in-law, or sister-in-law.',
-    ['Make sure to enter your 2019 earned income in line 27c']: 'Make sure to enter your 2019 earned income in line 27c.'
+    ['Make sure to enter your 2019 earned income in line 27c']: 'Make sure to enter your 2019 earned income in line 27c.',
+    ['For more information about tax credits for youth, check out']: 'For more information about tax credits for youth, check out',
+    ['this resource']: 'this resource',
+    ['from John Burton Advocates for Youth!']: 'from John Burton Advocates for Youth!'
+
 }
 
 export const translations: Record<SupportedLanguages, WorkflowTranslation> = {
