@@ -19,6 +19,7 @@ import {
     getFamilyConnection,
     getYounger,
     getLivingExpensesPaid,
+    getCohabitation,
 } from './workflowSlice'
 import WorkflowStep from './WorkflowStep'
 import InDevelopment from './InDevelopment'
@@ -38,6 +39,7 @@ export const ResultStep = () => {
     const familyConnection = useSelector(getFamilyConnection)
     const younger = useSelector(getYounger)
     const livingExpensesPaid = useSelector(getLivingExpensesPaid)
+    const cohabitation = useSelector(getCohabitation)
     if (dependentChildren) {
         return <WorkflowStep title='Results'>
             <Box sx={{ width: "80%", paddingBottom: "10px" }}>
@@ -141,6 +143,13 @@ export const ResultStep = () => {
             </Box>
         </WorkflowStep>
     }
+    if (cohabitation) {
+        return <WorkflowStep title='Results'>
+            <Box sx={{ width: "80%", paddingBottom: "10px" }}>
+                { localizer('You can likely be claimed as the dependent of another taxpayer') }
+            </Box>
+        </WorkflowStep>
+    }
     if (livingExpensesPaid === false) {
         return <WorkflowStep title='Results'>
             <Box sx={{ width: "80%", paddingBottom: "10px" }}>
@@ -151,13 +160,12 @@ export const ResultStep = () => {
                     && <React.Fragment>
                         <br />
                         <Box sx={{ width: "80%", paddingBottom: "10px" }}>
-                            { localizer('If you’re using the 1040 form') }
+                            { localizer('If you\'re using the 1040 form') }
                         </Box>
                     </React.Fragment>)
                 || ''
             }
         </WorkflowStep>
-
     }
     return <InDevelopment />
 }

@@ -23,6 +23,7 @@ export interface WorkflowState {
     familyConnection?: boolean;
     younger?: boolean;
     livingExpensesPaid?: boolean;
+    cohabitation?: boolean;
 }
 
 const initialState: WorkflowState = {
@@ -30,7 +31,7 @@ const initialState: WorkflowState = {
     activeStep: 0
 };
 
-const resultStep = 15
+const resultStep = 16
 
 export const workflowSlice = createSlice({
     name: 'workflow',
@@ -86,6 +87,9 @@ export const workflowSlice = createSlice({
         setLivingExpensesPaid: (state, action: PayloadAction<boolean>) => {
             state.livingExpensesPaid = action.payload
         },
+        setCohabitation: (state, action: PayloadAction<boolean>) => {
+            state.cohabitation = action.payload
+        },
         nextRelevantStep: (state) => {
             const nextStep = findNextRelevantStep(state, state.activeStep)
             state.activeStep = nextStep
@@ -114,6 +118,7 @@ export const {
     setFamilyConnection,
     setYounger,
     setLivingExpensesPaid,
+    setCohabitation,
     nextRelevantStep,
     backOneStep
 } = workflowSlice.actions;
@@ -138,7 +143,8 @@ export const getNextStepNeeded = (state: RootState): number => {
         livingWithSomeone,
         familyConnection,
         younger,
-        livingExpensesPaid
+        livingExpensesPaid,
+        cohabitation
     } = state.workflow
     if (dependentChildren === undefined) {
         return 0
@@ -190,6 +196,9 @@ export const getNextStepNeeded = (state: RootState): number => {
     }
     if (livingExpensesPaid === undefined) {
         return 14
+    }
+    if (cohabitation === undefined) {
+        return 15
     }
     return resultStep
 }
@@ -284,6 +293,8 @@ const stepIsRelevantBase = ({
             return livingWithSomeone === true
         case 13:
             return familyConnection === true
+        case 15:
+            return livingExpensesPaid || false
         default:
             break
     }
@@ -352,6 +363,10 @@ export const getYounger = (state: RootState) => {
 
 export const getLivingExpensesPaid = (state: RootState) => {
     return state.workflow.livingExpensesPaid
+}
+
+export const getCohabitation = (state: RootState) => {
+    return state.workflow.cohabitation
 }
 
 export default workflowSlice.reducer;
