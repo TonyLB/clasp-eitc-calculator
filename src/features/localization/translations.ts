@@ -74,7 +74,16 @@ export type WorkflowPrompts =
     'If you\'re using the 1040 form' |
     'Cohabitation Step' |
     'Did you live with this person all year?' |
-    'You can likely be claimed as the dependent of another taxpayer'
+    'You can likely be claimed as the dependent of another taxpayer' |
+    'Extended Family Step' |
+    'Were you related to them as their child' |
+    'Their brother' |
+    'Their father' |
+    'Their stepfather' |
+    'A son or daughter of their brother or sister' |
+    'A son or daughter of their half brother or half sister' |
+    'A brother or sister of their father or mother' |
+    'Their son-in-law'
 
 type WorkflowTranslation = Record<WorkflowPrompts, string>
 
@@ -151,7 +160,16 @@ const english: WorkflowTranslation = {
     ['If you\'re using the 1040 form']: ' If you\'re using the 1040 form instead of a software, your EITC is located on line 27a . Indicate that “you were born after 1/1/1998, and before 1/2/2004, and you satisfy all the other requirements for taxpayers who are at least age 18, to claim the EIC.',
     ['Cohabitation Step']: 'Cohabitation',
     ['Did you live with this person all year?']: 'Did you live with this person all year? Other than absences due to illness, education, business, vacation, military service, or detention in a juvenile facility.',
-    ['You can likely be claimed as the dependent of another taxpayer']: 'You do not qualify for the Earned Income Tax Credit because you can likely be claimed as the dependent of another taxpayer.'
+    ['You can likely be claimed as the dependent of another taxpayer']: 'You do not qualify for the Earned Income Tax Credit because you can likely be claimed as the dependent of another taxpayer.',
+    ['Extended Family Step']: 'Extended Family',
+    ['Were you related to them as their child']: 'Were you related to them as their child, stepchild, foster child, or a descendant of any of them (for example, their grandchild). (A legally adopted child is considered your child.)',
+    ['Their brother']: 'Their brother, sister, half brother, half sister, stepbrother, or stepsister.',
+    ['Their father']: 'Their father, mother, grandparent, or other direct ancestor, but not foster parent.',
+    ['Their stepfather']: 'Their stepfather or stepmother.',
+    ['A son or daughter of their brother or sister']: 'A son or daughter of their brother or sister.',
+    ['A son or daughter of their half brother or half sister']: 'A son or daughter of their half brother or half sister.',
+    ['A brother or sister of their father or mother']: 'A brother or sister of their father or mother.',
+    ['Their son-in-law']: 'Their son-in-law, daughter-in-law, father-in-law, mother-in-law, brother-in-law, or sister-in-law.'
 }
 
 export const translations: Record<SupportedLanguages, WorkflowTranslation> = {
