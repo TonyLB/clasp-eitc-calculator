@@ -151,7 +151,7 @@ const english: WorkflowTranslation = {
     ['Foster Care Step']: 'Foster Care Status',
     ['Were you in formal foster care at any time between the ages of 14-17 years old?']: 'Were you in formal foster care at any time between the ages of 14-17 years old? Formal foster care can include care by a relative, as long as a child welfare agency was involved with your placement. You do not need documentation to prove your status as a former foster youth.',
     ['Homeless Step']: 'Homeless/Unaccompanied Status',
-    ['In 2021, were you an unaccompanied homeless youth']: ' In 2021, were you an unaccompanied homeless youth, or a youth who was self-supporting and at risk of homelessness (experiencing homelessness without a parent or guardian. This includes staying temporarily with other people, in a shelter, outside, or in places not meant for human habitation).',
+    ['In 2021, were you an unaccompanied homeless youth']: ' In 2021, were you an unaccompanied homeless youth (experiencing homelessness without a parent or guardian), or a youth who was self-supporting and at risk of homelessness?',
     ['I\'m not sure, tell me more']: 'I\'m not sure, tell me more',
     ['You are not eligible for the EITC for workers without qualifying children, because of your age and student status']: 'You are not eligible for the EITC for workers without qualifying children, because of your age and student status.  You may still want to file a return if you had any taxes withheld from a paycheck in 2021 or to claim the third stimulus payment if you did not receive it already.',
     ['Residency Step']: 'Residency',
