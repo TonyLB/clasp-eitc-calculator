@@ -167,6 +167,14 @@ export const ResultStep = () => {
             <Box sx={{ width: "80%", paddingBottom: "10px" }}>
                 { localizer('You do not qualify for the Earned Income Tax Credit because you are the qualifying child') }
             </Box>
+            <br />
+            <Box sx={{ width: "80%" }}>
+                { localizer('Go to') }
+                &nbsp;
+                <a href="https://www.getyourrefund.org/en">{ localizer('GetYourRefund') }</a>
+                &nbsp;
+                { localizer('for information on how to file')}
+            </Box>
         </WorkflowStep>
     }
     if (cohabitation) {
