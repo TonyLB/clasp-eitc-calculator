@@ -3,6 +3,7 @@ import { useSelector, useDispatch } from 'react-redux'
 import {
     Box
 } from '@mui/material'
+import { purple } from '@mui/material/colors'
 import CheckCircleIcon from '@mui/icons-material/CheckCircle'
 
 import { localize } from '../localization/localizationSlice'
@@ -42,7 +43,12 @@ export const SelectRows = <L extends string>({ value: currentValue, rows }: Sele
                             borderWidth: "1px",
                             borderStyle: "solid",
                             alignItems: "flex-start",
-                            backgroundColor: "white"
+                            background: selected
+                                ? `linear-gradient(${purple[100]}, ${purple[200]})`
+                                : `linear-gradient(${purple[50]}, ${purple[100]})`,
+                            '&:hover': {
+                                background: `linear-gradient(${purple[100]}, ${purple[200]})`
+                            }
                         }}
                         onClick={() => {
                             onSelect(value)
