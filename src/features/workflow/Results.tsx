@@ -137,6 +137,14 @@ export const ResultStep = () => {
             <Box sx={{ width: "80%", paddingBottom: "10px" }}>
                 { localizer('You are not eligible for the EITC for workers without qualifying children, because of your age and student status') }
             </Box>
+            <br />
+            <Box sx={{ width: "80%" }}>
+                { localizer('Go to') }
+                &nbsp;
+                <a href="https://www.getyourrefund.org/en">{ localizer('GetYourRefund') }</a>
+                &nbsp;
+                { localizer('for information on how to file')}
+            </Box>
         </WorkflowStep>
     }
     if (resident === false) {
