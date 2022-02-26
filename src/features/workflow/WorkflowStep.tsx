@@ -37,7 +37,8 @@ export const WorkflowStep: FunctionComponent<WorkflowStepProps> = ({ title, chil
             flexGrow: 1,
             display: "flex",
             flexFlow: "column nowrap",
-            background: `radial-gradient(farthest-corner at bottom left, ${purple[50]} 0%, ${purple[50]} 80%, ${purple[100]} 90%)`,
+            // background: `radial-gradient(farthest-corner at bottom left, ${purple[50]} 0%, ${purple[50]} 80%, ${purple[100]} 90%)`,
+            backgroundColor: 'lightGrey'
         }}
     >
         <Paper
@@ -68,7 +69,18 @@ export const WorkflowStep: FunctionComponent<WorkflowStepProps> = ({ title, chil
             variant="progress"
             steps={18}
             activeStep={activeStep}
-            sx={{ flexGrow: 1 }}
+            sx={{
+                flexGrow: 1,
+                '& .MuiLinearProgress-root': {
+                    backgroundColor: purple[50]
+                },
+                '& .MuiLinearProgress-bar': {
+                    backgroundColor: purple[300]
+                },
+                '& .MuiButton-root': {
+                    color: purple[400]
+                }
+            }}
             nextButton={
                 <Button
                     size="small"
