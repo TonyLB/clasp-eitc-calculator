@@ -149,7 +149,7 @@ const english: WorkflowTranslation = {
     ['Student Step']: 'Student Status',
     ['Were you a full time student for at least 5 months of 2021?']: 'Were you a full time student for at least 5 months of 2021?',
     ['Foster Care Step']: 'Foster Care Status',
-    ['Were you in formal foster care at any time between the ages of 14-17 years old?']: 'Were you in formal foster care at any time between the ages of 14-17 years old?',
+    ['Were you in formal foster care at any time between the ages of 14-17 years old?']: 'Were you in formal foster care at any time between the ages of 14-17 years old? Formal foster care can include care by a relative, as long as a child welfare agency was involved with your placement. You do not need documentation to prove your status as a former foster youth.',
     ['Homeless Step']: 'Homeless/Unaccompanied Status',
     ['In 2021, were you an unaccompanied homeless youth']: ' In 2021, were you an unaccompanied homeless youth, or a youth who was self-supporting and at risk of homelessness (experiencing homelessness without a parent or guardian. This includes staying temporarily with other people, in a shelter, outside, or in places not meant for human habitation).',
     ['I\'m not sure, tell me more']: 'I\'m not sure, tell me more',
