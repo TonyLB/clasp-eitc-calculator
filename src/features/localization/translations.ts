@@ -193,7 +193,7 @@ const english: WorkflowTranslation = {
     ['If you\'re using the 1040 form']: ' If you\'re using the 1040 form instead of a software, your EITC is located on line 27a . Indicate that “you were born after 1/1/1998, and before 1/2/2004, and you satisfy all the other requirements for taxpayers who are at least age 18, to claim the EIC.',
     ['Cohabitation Step']: 'Cohabitation',
     ['Did you live with this person all year?']: 'Did you live with this person all year? Other than absences due to illness, education, business, vacation, military service, or detention in a juvenile facility.',
-    ['You can likely be claimed as the dependent of another taxpayer']: 'You do not qualify for the Earned Income Tax Credit because you can likely be claimed as the dependent of another taxpayer.',
+    ['You can likely be claimed as the dependent of another taxpayer']: 'It appears that you do not qualify for the Earned Income Tax Credit because you can be claimed as a dependent by another person. You may still want to file a return if you had any taxes withheld from a paycheck in 2021 or to claim other credits.',
     ['Extended Family Step']: 'Extended Family',
     ['Were you related to them as']: 'Were you related to them as:',
     ['Their child']: 'their child, stepchild, foster child, or a descendant of any of them (for example, their grandchild). (A legally adopted child is considered your child.)',
