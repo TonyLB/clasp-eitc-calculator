@@ -59,6 +59,14 @@ export type WorkflowPrompts =
     'Homeless Step' |
     'In 2021, were you an unaccompanied homeless youth' |
     'I\'m not sure, tell me more' |
+    'You are considered to be an' |
+    'unaccompanied homeless youth' |
+    'if you are not in the physical custody of a parent' |
+    'You are considered to be' |
+    'self-supporting and at risk of homelessness' |
+    'if you pay for your own living expenses' |
+    'For more information see' |
+    'https://schoolhouseconnection.org/am-i-experiencing-homelessness' |
     'You are not eligible for the EITC for workers without qualifying children, because of your age and student status' |
     'Residency Step' |
     'In 2021, did you live in the United States for more than half of the year?' |
@@ -153,6 +161,14 @@ const english: WorkflowTranslation = {
     ['Homeless Step']: 'Homeless/Unaccompanied Status',
     ['In 2021, were you an unaccompanied homeless youth']: ' In 2021, were you an unaccompanied homeless youth (experiencing homelessness without a parent or guardian), or a youth who was self-supporting and at risk of homelessness?',
     ['I\'m not sure, tell me more']: 'I\'m not sure, tell me more',
+    ['You are considered to be an']: 'You are considered to be an',
+    ['unaccompanied homeless youth']: 'unaccompanied homeless youth',
+    ['if you are not in the physical custody of a parent']: 'if you are not in the physical custody of a parent or guardian and you stayed at shelters, campgrounds, cars, in motels, or temporarily with other people (“couch surfing”).',
+    ['You are considered to be']: 'You are considered to be',
+    ['self-supporting and at risk of homelessness']: 'self-supporting and at risk of homelessness',
+    ['if you pay for your own living expenses']: 'if you pay for your own living expenses, including housing, and may face a loss of housing or have no other stable housing arrangement.',
+    ['For more information see']: 'For more information see',
+    ['https://schoolhouseconnection.org/am-i-experiencing-homelessness']: 'https://schoolhouseconnection.org/am-i-experiencing-homelessness',
     ['You are not eligible for the EITC for workers without qualifying children, because of your age and student status']: 'You are not eligible for the EITC for workers without qualifying children, because of your age and student status.  You may still want to file a return if you had any taxes withheld from a paycheck in 2021 or to claim the third stimulus payment if you did not receive it already.',
     ['Residency Step']: 'Residency',
     ['In 2021, did you live in the United States for more than half of the year?']: 'In 2021, did you live in the United States for more than half of the year?',

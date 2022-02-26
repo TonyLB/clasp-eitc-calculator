@@ -322,9 +322,27 @@ const HomelessStep = () => {
                     { localizer('In 2021, were you an unaccompanied homeless youth') }
                 </Box>
                 <br />
-                <Button variant="contained" onClick={() => { window.open("https://schoolhouseconnection.org/am-i-experiencing-homelessness", "_blank")}}>
-                    { localizer('I\'m not sure, tell me more') }
-                </Button>
+                <Box sx={{ width: "80%" }}>
+                    <InfoPopup>
+                        <ul>
+                            <li>
+                                { localizer('You are considered to be an') }&nbsp;
+                                <b>{ localizer('unaccompanied homeless youth') }</b>&nbsp;
+                                { localizer('if you are not in the physical custody of a parent') }
+                            </li>
+                            <li>
+                                { localizer('You are considered to be') }&nbsp;
+                                <b>{ localizer('self-supporting and at risk of homelessness') }</b>&nbsp;
+                                { localizer('if you pay for your own living expenses') }
+                            </li>
+                        </ul>
+                        <br />
+                        { localizer('For more information see')}&nbsp;
+                        <a href="https://schoolhouseconnection.org/am-i-experiencing-homelessness" target="_blank">
+                            { localizer('https://schoolhouseconnection.org/am-i-experiencing-homelessness') }
+                        </a>.
+                    </InfoPopup>
+                </Box>
                 <SelectRows
                     value={currentValue}
                     rows={[{
