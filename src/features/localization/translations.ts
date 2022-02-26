@@ -82,6 +82,8 @@ export type WorkflowPrompts =
     'You do not qualify for the Earned Income Tax Credit because you are the qualifying child' |
     'Living Expenses Step' |
     'Did another person provide more than half of your living expenses' |
+    'This is calculated by adding' |
+    'here' |
     'You likely qualify for a credit' |
     'If you\'re using the 1040 form' |
     'Cohabitation Step' |
@@ -184,6 +186,8 @@ const english: WorkflowTranslation = {
     ['You do not qualify for the Earned Income Tax Credit because you are the qualifying child']: 'It appears you do not qualify for the Earned Income Tax Credit because you are the qualifying child of another taxpayer. You may still want to file a return if you had any taxes withheld from a paycheck in 2021 or to claim other credits.',
     ['Living Expenses Step']: 'Living Expenses',
     ['Did another person provide more than half of your living expenses']: 'Did another person (or person and their spouse) provide more than half of your living expenses for 2021? (Note: Foster care payments are considered support provided by the agency, not by the foster parent).',
+    ['This is calculated by adding']: 'This is calculated by adding up the all the costs of living (food, housing, clothing, health care, education, etc.) and determining who has paid them. Note: Foster care payments are considered support provided by the agency, not by the foster parent.  The IRS has a worksheet for helping you make this calculation',
+    ['here']: 'here',
     ['You likely qualify for a credit']: 'You likely qualify for a credit of up to $1502 through the earned income tax credit! To claim the credit, indicate on your taxes that you would like to claim EITC or EIC (depending on the software it can appear either way).',
     ['If you\'re using the 1040 form']: ' If you\'re using the 1040 form instead of a software, your EITC is located on line 27a . Indicate that “you were born after 1/1/1998, and before 1/2/2004, and you satisfy all the other requirements for taxpayers who are at least age 18, to claim the EIC.',
     ['Cohabitation Step']: 'Cohabitation',
