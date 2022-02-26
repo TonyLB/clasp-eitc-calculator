@@ -47,6 +47,7 @@ import {
 import { SelectRows } from './SelectRows'
 import WorkflowStep from './WorkflowStep'
 import InDevelopment from './InDevelopment'
+import InfoPopup from './InfoPopup'
 import ResultStep from './Results'
 import { WorkflowPrompts } from '../localization/translations'
 
@@ -94,6 +95,46 @@ const SimpleYesNoStep: FunctionComponent<SimpleYesNoStepProps> = ({
         </WorkflowStep>
 }
 
+const DependentChildrenStep = () => {
+    const dispatch = useDispatch()
+    const localizer = useSelector(localize)
+    const dependentChildren = useSelector(getDependentChildren)
+    const currentValue = dependentChildren === true ? 'Yes' : dependentChildren === false ? 'No' : ''
+    return <WorkflowStep title='Children Step'>
+                <Box sx={{ width: "80%" }}>
+                    { localizer('Do you have children') }
+                </Box>
+                <br />
+                <Box sx={{ width: "80%" }}>
+                    <InfoPopup title='Children Step'>
+                        { localizer('Children can include') }
+                        <br />
+                        { localizer('For more details, see')}&nbsp;
+                        <a href="https://www.irs.gov/credits-deductions/individuals/earned-income-tax-credit/qualifying-child-rules">
+                            { localizer('this IRS website') }
+                        </a>.
+                    </InfoPopup>
+                </Box>
+                <br />
+                <SelectRows
+                    value={currentValue}
+                    rows={[{
+                        value: 'Yes',
+                        label: 'Yes',
+                        onSelect: () => {
+                            dispatch(setDependentChildren(true))
+                        }
+                    },
+                    {
+                        value: 'No',
+                        label: 'No',
+                        onSelect: () => {
+                            dispatch(setDependentChildren(false))
+                        }
+                    }]}
+                />
+        </WorkflowStep>
+}
 const FilingJointStep = () => {
     const dispatch = useDispatch()
     const localizer = useSelector(localize)
@@ -374,12 +415,7 @@ interface StepDispatchProps {
 const StepDispatch: FunctionComponent<StepDispatchProps> = ({ activeStep }) => {
     switch(activeStep) {
         case 0:
-            return <SimpleYesNoStep
-                getValue={getDependentChildren}
-                setValue={setDependentChildren}
-                title='Children Step'
-                question='Do you have children'
-            />
+            return <DependentChildrenStep />
         case 1:
             return <FilingJointStep />
         case 2:

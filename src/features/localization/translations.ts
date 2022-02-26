@@ -13,6 +13,9 @@ export type WorkflowPrompts =
     'Results' |
     'Children Step' |
     'Do you have children' |
+    'Children can include' |
+    'For more details, see' |
+    'this IRS website'|
     'You may qualify for the Earned Income Tax Credit for parents' |
     'Go to' |
     'GetYourRefund' |
@@ -102,7 +105,10 @@ const english: WorkflowTranslation = {
     ['No']: 'No',
     ['Results']: 'Results',
     ['Children Step']: 'Dependent Children',
-    ['Do you have children']: 'Do you have children who live with you and you pay for their expenses?',
+    ['Do you have children']: 'Do you have children who live with you for more than half the year?',
+    ['Children can include']: 'Children can include step-children, adopted or foster children, grandchildren,younger siblings and nieces and nephews. Children must be under 19 (24 if full-time students) or permanently and totally disabled. Children who were born during the year can count if they lived with you at least half the time they were alive.  Children must have a valid social security number and can only be claimed by one person in a given year.',
+    ['For more details, see']: 'For more details, see',
+    ['this IRS website']: 'this IRS website',
     ['You may qualify for the Earned Income Tax Credit for parents']: 'You may qualify for the Earned Income Tax Credit for parents with qualifying children, and the Child Tax Credit.  You should file a tax return for 2021 to claim the credits you are eligible for.',
     ['Go to']: 'Go to',
     ['GetYourRefund']: 'GetYourRefund',

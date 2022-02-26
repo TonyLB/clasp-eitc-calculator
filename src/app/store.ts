@@ -1,11 +1,9 @@
 import { configureStore, ThunkAction, Action } from '@reduxjs/toolkit'
-import counterReducer from '../features/counter/counterSlice'
 import localizationReducer from '../features/localization/localizationSlice'
 import workflowReducer from '../features/workflow/workflowSlice'
 
 export const store = configureStore({
   reducer: {
-    counter: counterReducer,
     localization: localizationReducer,
     workflow: workflowReducer
   }
