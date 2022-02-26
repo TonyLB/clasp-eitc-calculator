@@ -106,11 +106,11 @@ const DependentChildrenStep = () => {
                 </Box>
                 <br />
                 <Box sx={{ width: "80%" }}>
-                    <InfoPopup title='Children Step'>
+                    <InfoPopup>
                         { localizer('Children can include') }
                         <br />
                         { localizer('For more details, see')}&nbsp;
-                        <a href="https://www.irs.gov/credits-deductions/individuals/earned-income-tax-credit/qualifying-child-rules">
+                        <a href="https://www.irs.gov/credits-deductions/individuals/earned-income-tax-credit/qualifying-child-rules" target="_blank">
                             { localizer('this IRS website') }
                         </a>.
                     </InfoPopup>
@@ -222,6 +222,17 @@ const IncomeStep = ({ priorYear }: { priorYear?: boolean }) => {
                             ? localizer('What was your and your spouse\'s combined earned income in 2021?')
                             : localizer('What was your earned income in 2021?'))
                     }
+                </Box>
+                <br />
+                <Box sx={{ width: "80%" }}>
+                    <InfoPopup prompt="What is earned income?">
+                        { localizer('Earned income includes') }
+                        <br />
+                        { localizer('For more details, see')}&nbsp;
+                        <a href="https://www.irs.gov/credits-deductions/individuals/earned-income-tax-credit/earned-income-and-earned-income-tax-credit-eitc-tables" target="_blank">
+                            { localizer('this IRS website') }
+                        </a>.
+                    </InfoPopup>
                 </Box>
                 <br />
                 <SelectRows

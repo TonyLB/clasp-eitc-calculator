@@ -10,11 +10,11 @@ import { localize } from '../localization/localizationSlice'
 import { WorkflowPrompts } from '../localization/translations'
 
 interface InfoPopupProps {
-    title: WorkflowPrompts;
+    prompt?: WorkflowPrompts;
     children?: ReactChild | ReactChild[];
 }
 
-export const InfoPopup: FunctionComponent<InfoPopupProps> = ({ title, children }) => {
+export const InfoPopup: FunctionComponent<InfoPopupProps> = ({ prompt = 'I\'m not sure, tell me more', children }) => {
     const localizer = useSelector(localize)
     const [anchorEl, setAnchorEl] = useState(null);
 
@@ -31,7 +31,7 @@ export const InfoPopup: FunctionComponent<InfoPopupProps> = ({ title, children }
 
     return <div>
         <Button aria-describedby={id} variant="contained" onClick={handleClick}>
-            { localizer('I\'m not sure, tell me more') }
+            { localizer(prompt) }
         </Button>
         <Popover
             id={id}
