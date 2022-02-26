@@ -1,6 +1,7 @@
 import React, { FunctionComponent, ReactChild, useState } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 import {
+    Box,
     Button,
     Popover
 } from "@mui/material"
@@ -46,7 +47,14 @@ export const InfoPopup: FunctionComponent<InfoPopupProps> = ({ title, children }
                 horizontal: 'center',
               }}
         >
-            { children }
+            <Box sx={{
+                maxWidth: { sm: 200, md: 300 },
+                padding: 3
+            }}>
+                { children }
+            </Box>
         </Popover>
     </div>
 }
+
+export default InfoPopup
