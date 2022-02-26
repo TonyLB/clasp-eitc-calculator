@@ -7,6 +7,7 @@ import {
     Typography,
     Button
 } from "@mui/material"
+import { purple } from '@mui/material/colors'
 import KeyboardArrowLeft from '@mui/icons-material/KeyboardArrowLeft'
 import KeyboardArrowRight from '@mui/icons-material/KeyboardArrowRight'
 
@@ -36,7 +37,7 @@ export const WorkflowStep: FunctionComponent<WorkflowStepProps> = ({ title, chil
             flexGrow: 1,
             display: "flex",
             flexFlow: "column nowrap",
-            backgroundColor: "lightgrey"
+            background: `radial-gradient(farthest-corner at bottom left, ${purple[50]} 0%, ${purple[50]} 80%, ${purple[100]} 90%)`,
         }}
     >
         <Paper
@@ -57,7 +58,7 @@ export const WorkflowStep: FunctionComponent<WorkflowStepProps> = ({ title, chil
                 width: "100%",
                 display: "flex",
                 justifyContent: "center",
-                flexFlow: "row wrap"
+                flexFlow: "row wrap",
             }}>
                 { children }
             </Box>
