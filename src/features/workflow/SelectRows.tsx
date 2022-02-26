@@ -45,7 +45,10 @@ export const SelectRows = <L extends string>({ value: currentValue, rows }: Sele
                             alignItems: "flex-start",
                             background: selected
                                 ? `linear-gradient(${purple[100]}, ${purple[200]})`
-                                : `linear-gradient(${purple[50]}, ${purple[100]})`
+                                : `linear-gradient(${purple[50]}, ${purple[100]})`,
+                            '&:hover': {
+                                background: `linear-gradient(${purple[100]}, ${purple[200]})`
+                            }
                         }}
                         onClick={() => {
                             onSelect(value)
