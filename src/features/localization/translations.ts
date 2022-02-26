@@ -119,7 +119,7 @@ const english: WorkflowTranslation = {
     ['SSN Step']: 'Social Security Number',
     ['Do you have a social security number that authorizes you to work?']: 'Do you have a social security number that authorizes you to work?',
     ['Do both you and your spouse have a social security number that authorizes you to work?']: 'Do both you and your spouse have a social security number that authorizes you to work?',
-    ['If you do not have a SSN']: 'If you do not have a SSN, you cannot claim the federal EITC, although some states  (Maryland, New Mexico, Oregon, Washington, Colorado, and California) allow taxpayers with ITINs to claim their state EITCs.',
+    ['If you do not have a SSN']: 'If you do not have a Social Secutiry Number, you cannot claim the federal EITC, although some states  (Maryland, New Mexico, Oregon, Washington, Colorado, and California) allow taxpayers with Individual Taxpayer Identification Numbers (ITINs) to claim their state EITCs.',
     ['Earned Income Step']: 'Earned Income',
     ['What was your and your spouse\'s combined earned income in 2021?']: 'What was your and your spouse\'s combined earned income in 2021?',
     ['What was your earned income in 2021?']: 'What was your earned income in 2021?',
