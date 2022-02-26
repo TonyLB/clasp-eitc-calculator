@@ -29,7 +29,8 @@ export const SelectRows = <L extends string>({ value: currentValue, rows }: Sele
                 const selected = value === currentValue
                 return <Box key={value} sx={{
                     width: "80%",
-                    padding: "15px"
+                    padding: "15px",
+                    cursor: "pointer"
                 }}>
                     <Box
                         key={value}
