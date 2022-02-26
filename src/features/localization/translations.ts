@@ -90,7 +90,8 @@ export type WorkflowPrompts =
     'Did you live with this person all year?' |
     'You can likely be claimed as the dependent of another taxpayer' |
     'Extended Family Step' |
-    'Were you related to them as their child' |
+    'Were you related to them as' |
+    'Their child' |
     'Their brother' |
     'Their father' |
     'Their stepfather' |
@@ -194,7 +195,8 @@ const english: WorkflowTranslation = {
     ['Did you live with this person all year?']: 'Did you live with this person all year? Other than absences due to illness, education, business, vacation, military service, or detention in a juvenile facility.',
     ['You can likely be claimed as the dependent of another taxpayer']: 'You do not qualify for the Earned Income Tax Credit because you can likely be claimed as the dependent of another taxpayer.',
     ['Extended Family Step']: 'Extended Family',
-    ['Were you related to them as their child']: 'Were you related to them as their child, stepchild, foster child, or a descendant of any of them (for example, their grandchild). (A legally adopted child is considered your child.)',
+    ['Were you related to them as']: 'Were you related to them as:',
+    ['Their child']: 'their child, stepchild, foster child, or a descendant of any of them (for example, their grandchild). (A legally adopted child is considered your child.)',
     ['Their brother']: 'Their brother, sister, half brother, half sister, stepbrother, or stepsister.',
     ['Their father']: 'Their father, mother, grandparent, or other direct ancestor, but not foster parent.',
     ['Their stepfather']: 'Their stepfather or stepmother.',

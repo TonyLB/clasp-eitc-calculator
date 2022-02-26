@@ -408,11 +408,12 @@ const ExtendedFamilyStep = () => {
     const currentValue = extendedFamily === true ? 'Yes' : extendedFamily === false ? 'No' : ''
     return <WorkflowStep title='Extended Family Step'>
                 <Box sx={{ width: "80%", paddingBottom: "20px" }}>
-                    { localizer('Were you related to them as their child') }
+                    { localizer('Were you related to them as') }
                 </Box>
                 <br />
-                <Box sx={{ width: "80%", paddingBottom: "20px" }}>
+                <Box sx={{ width: "80%", paddingBottom: "20px", textAlign: 'left' }}>
                     <ul>
+                        <li>{ localizer('Their child') }</li>
                         <li>{ localizer('Their brother') }</li>
                         <li>{ localizer('Their father') }</li>
                         <li>{ localizer('Their stepfather') }</li>
