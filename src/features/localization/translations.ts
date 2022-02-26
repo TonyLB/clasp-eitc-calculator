@@ -30,6 +30,7 @@ export type WorkflowPrompts =
     'Earned Income Step' |
     'What was your and your spouse\'s combined earned income in 2021?' |
     'What was your earned income in 2021?' |
+    'What is earned income?' |
     'Earned income includes' |
     'None' |
     'At least $1 up to $27,380' |
@@ -123,7 +124,8 @@ const english: WorkflowTranslation = {
     ['Earned Income Step']: 'Earned Income',
     ['What was your and your spouse\'s combined earned income in 2021?']: 'What was your and your spouse\'s combined earned income in 2021?',
     ['What was your earned income in 2021?']: 'What was your earned income in 2021?',
-    ['Earned income includes']: 'Earned income includes income earned as wages, as a contractor, or on a cash basis.  It does not include unemployment insurance or stimulus payments. It does not include scholarship or fellowship grants unless they were reported on a W-2 form.',
+    ['What is earned income?']: 'What counts as earned income?',
+    ['Earned income includes']: 'Earned income includes income earned as wages, through self-employment or sales, as a contractor, through a “gig” job or side hustle, or on a cash basis.  It does not include unemployment insurance or stimulus payments. It does not include scholarship or fellowship grants unless they were reported on a W-2 form.',
     ['None']: 'None',
     ['At least $1 up to $27,380']: 'At least $1 up to $27,380',
     ['More than $27,380']: 'More than $27,380',
