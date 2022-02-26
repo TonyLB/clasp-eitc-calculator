@@ -373,9 +373,14 @@ const LivingExpensesStep = () => {
                     { localizer('Did another person provide more than half of your living expenses') }
                 </Box>
                 <br />
-                <Button variant="contained" onClick={() => { window.open("https://schoolhouseconnection.org/am-i-experiencing-homelessness", "_blank")}}>
-                    { localizer('I\'m not sure, tell me more') }
-                </Button>
+                <Box sx={{ width: "80%" }}>
+                    <InfoPopup>
+                        { localizer('This is calculated by adding') }&nbsp;
+                        <a href="https://apps.irs.gov/app/vita/content/globalmedia/teacher/worksheet_for_determining_support_4012.pdf" target="_blank">
+                            { localizer('here') }.
+                        </a>.
+                    </InfoPopup>
+                </Box>
                 <SelectRows
                     value={currentValue}
                     rows={[{
