@@ -24,6 +24,7 @@ import {
 } from './workflowSlice'
 import WorkflowStep from './WorkflowStep'
 import InDevelopment from './InDevelopment'
+import taxForm from './tax-form.png'
 
 const GetYourRefund = () => {
     const localizer = useSelector(localize)
@@ -149,6 +150,9 @@ export const ResultStep = () => {
                         <Box sx={{ width: "80%", paddingBottom: "10px" }}>
                             { localizer('If you\'re using the 1040 form') }
                         </Box>
+                        <Box sx={{ width: "80%", paddingBottom: "10px" }}>
+                            <img alt="tax form" src={taxForm} />
+                        </Box>
                     </React.Fragment>)
                 || ''
             }
@@ -160,10 +164,12 @@ export const ResultStep = () => {
                             { localizer('For more information about tax credits for youth, check out') }
                             
                             &nbsp;
-                            <a href="https://jbay.org/resources/tax-filing-national/">{ localizer('this resource') }</a>
+                            <a href="https://jbay.org/resources/tax-filing-national/" target="_blank">{ localizer('this resource') }</a>
                             &nbsp;
 
-                            { localizer('from John Burton Advocates for Youth!') }
+                            { localizer('from John Burton Advocates for Youth!') }&nbsp;
+                            { localizer('More') }&nbsp;
+                            <a href="https://schoolhouseconnection.org/earned-income-tax-credit/" target="_blank">{ localizer('frequently asked questions are answered here.') }</a>
                         </Box>
                     </React.Fragment>)
                 || ''

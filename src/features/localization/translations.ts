@@ -102,7 +102,9 @@ export type WorkflowPrompts =
     'Make sure to enter your 2019 earned income in line 27c' |
     'For more information about tax credits for youth, check out' |
     'this resource' |
-    'from John Burton Advocates for Youth!'
+    'from John Burton Advocates for Youth!' |
+    'More' |
+    'frequently asked questions are answered here.'
 
 type WorkflowTranslation = Record<WorkflowPrompts, string>
 
@@ -207,7 +209,9 @@ const english: WorkflowTranslation = {
     ['Make sure to enter your 2019 earned income in line 27c']: 'Make sure to enter your 2019 earned income in line 27c.',
     ['For more information about tax credits for youth, check out']: 'For more information about tax credits for youth, check out',
     ['this resource']: 'this resource',
-    ['from John Burton Advocates for Youth!']: 'from John Burton Advocates for Youth!'
+    ['from John Burton Advocates for Youth!']: 'from John Burton Advocates for Youth!',
+    ['More']: 'More',
+    ['frequently asked questions are answered here.']: 'frequently asked questions are answered here.'
 
 }
 
