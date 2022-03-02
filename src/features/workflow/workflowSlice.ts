@@ -60,9 +60,15 @@ export const workflowSlice = createSlice({
         },
         setDOBBand: (state, action: PayloadAction<DOBBand>) => {
             state.dobBand = action.payload
+            state.fosterCare = undefined
+            state.homeless = undefined
         },
         setStudent: (state, action: PayloadAction<boolean>) => {
             state.student = action.payload
+            if (!state.student) {
+                state.fosterCare = undefined
+                state.homeless = undefined
+            }
         },
         setFosterCare: (state, action: PayloadAction<boolean>) => {
             state.fosterCare = action.payload
@@ -292,13 +298,13 @@ const stepIsRelevantBase = ({
         case 6:
             return dobBand === '1998'
         case 7:
-            return (dobBand === '2003') || (student ?? false)
+            return (dobBand === '2003') || (dobBand === '1998' && (student ?? false))
         case 8:
-            return fosterCare === false
+            return ((dobBand === '2003') || (dobBand === '1998' && (student ?? false))) && (fosterCare === false)
         case 11:
             return (disability ||
                 (['2004+', '2003'].includes(dobBand || '') ||
-                (dobBand === '1998' && student))) ?? false
+                (dobBand === '1998' && !student))) ?? false
         case 12:
             return livingWithSomeone === true
         case 13:

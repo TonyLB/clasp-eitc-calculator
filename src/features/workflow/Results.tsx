@@ -97,7 +97,7 @@ export const ResultStep = () => {
             <GetYourRefund />
         </WorkflowStep>
     }
-    if (dobBand === '2004+' && !(fosterCare || homeless)) {
+    if ((dobBand === '2003' && !(fosterCare || homeless)) || dobBand === '2004+') {
         return <WorkflowStep title='Results'>
             <Box sx={{ width: "80%", paddingBottom: "10px" }}>
                 { localizer('You are not eligible for the EITC for workers without qualifying children because of your age') }
@@ -105,7 +105,7 @@ export const ResultStep = () => {
             <GetYourRefund />
         </WorkflowStep>
     }
-    if (dobBand === '1998' && (!(fosterCare || homeless) && student)) {
+    if (dobBand === '1998' && ((!(fosterCare || homeless) && student) || !student)) {
         return <WorkflowStep title='Results'>
             <Box sx={{ width: "80%", paddingBottom: "10px" }}>
                 { localizer('You are not eligible for the EITC for workers without qualifying children, because of your age and student status') }
