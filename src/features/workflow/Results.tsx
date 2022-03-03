@@ -137,7 +137,14 @@ export const ResultStep = () => {
             <GetYourRefund />
         </WorkflowStep>
     }
-    if (livingExpensesPaid === false || (cohabitation === false && extendedFamily === false)) {
+    if (
+        (incomeBand === 'Poverty' && (incomeBand === 'Poverty')
+        && !((disability ||
+            (['2004+', '2003'].includes(dobBand || '') ||
+            (dobBand === '1998' && !student))) ?? false)
+        )
+        || (livingExpensesPaid === false || (cohabitation === false && extendedFamily === false))
+        ) {
         return <WorkflowStep title='Results'>
             <Box sx={{ width: "80%", paddingBottom: "10px" }}>
                 { localizer('You likely qualify for a credit') }
