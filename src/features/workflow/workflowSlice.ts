@@ -283,6 +283,11 @@ const stepIsRelevantBase = ({
     if (resident === false && step < resultStep && step > 9) {
         return false
     }
+    if ((incomeBand === 'Poverty') && !((disability ||
+        (['2004+', '2003'].includes(dobBand || '') ||
+        (dobBand === '1998' && !student))) ?? false) && step < resultStep && step > 11) {
+            return false
+        }
     if (familyConnection && disability && step < resultStep && step > 12) {
         return false
     }
