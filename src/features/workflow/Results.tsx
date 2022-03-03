@@ -129,7 +129,7 @@ export const ResultStep = () => {
             <GetYourRefund />
         </WorkflowStep>
     }
-    if (cohabitation) {
+    if (cohabitation || extendedFamily) {
         return <WorkflowStep title='Results'>
             <Box sx={{ width: "80%", paddingBottom: "10px" }}>
                 { localizer('You can likely be claimed as the dependent of another taxpayer') }
