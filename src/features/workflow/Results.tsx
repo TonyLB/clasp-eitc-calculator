@@ -151,7 +151,7 @@ export const ResultStep = () => {
                 { ((priorIncomeBand === 'Poverty') && <React.Fragment>&nbsp; { localizer('Make sure to enter your 2019 earned income in line 27c') } </React.Fragment>) || '' }
             </Box>
             {
-                ((student || fosterCare)
+                ((student || fosterCare || homeless)
                     && <React.Fragment>
                         <br />
                         <Box sx={{ width: "80%", paddingBottom: "10px" }}>
